@@ -1,0 +1,72 @@
+merkki = valmistaja (esim. Toyota, Volvo, Tesla, Ford)
+malli = auton malli (esim. Corolla)
+tyyppi = ajoneuvoluokka (tässä: henkilöauto, pakettiauto, ehka myös: kuorma-auto)
+
+polttoaine: Bensiini, Diesel, Hybridi, Sähkö
+
+kulutus yksikkö: "l/100km" (Bensiini, Diesel, Hybridi) ja "kWh/100km" (Sähkö)
+
+Analytiikkaan ideoita:
+Tyyppyjakauma 
+Polttoaine/sähköautojen jakauma
+Ympäristöluokitus
+Päästöjen seuranta
+Keskiarvo kulutus
+Korkein / matalin kulutus
+
+Ideoita:
+Katsastusvahti, joka katsastaaertoo mitkä ajoneuvot pitää katsastaa pian
+Polttoaineen kulutuslaskuri, jonka avulla voi katsoa ajoneuvoittain polttoaineen kulutuksen
+Poistoajan voisi laskea esim. 5 vuotta henkilöauto, 10 vuotta pakettiauto, 15 vuotta kuorma-auto
+
+KÄYTTÖ: KALUSTONHALLINTA, KATSASTUSVAHTI, PÄÄSTÖSEURANTA
+
+Huom. Sähköautolla ei ole euroluokkaa, eli null/ tyhja
+
+Eurolukat:
+Henkilöautot, pakettiautot: 
+https://en.wikipedia.org/wiki/European_emission_standards
+
+Raskaskalusto:
+https://dieselnet.com/standards/eu/hd.php
+¨
+
+Saatan ehkä vähentää tarvittavia tietoja, pitää miettiä vielä tarkemmin
+  {
+    id: 0,
+    rekisterinumero: "",
+    merkki: "",
+    malli: "",
+    tyyppi: "",
+    vuosimalli: 0,
+    kayttoonottoPvm: "YYYY-MM-DD",
+    kayttovoima: "", // Bensiini, Diesel, Hybridi, Sähkö
+    vaihteisto: "",
+    kutuluts: 0.00,
+    kulutusYksikko: "", // l/100km tai sähköautolle: kWh/100km
+    ymparistoLuokitus: "",
+    neliveto: false,
+    katsastettu_pvm: "YYYY-MM-DD",
+    seuraava_katsastus: "YYYY-MM-DD",
+    ajokilometrit: 15000,
+    kaytossa: true
+  }
+
+Suuntaa antavaa, oikeat tiedot löytyisi oikeille ajoneuvoille esim. Traficom
+
+Henkilöauto (l/100 km)
+- Bensiini: 6–8
+- Diesel: 4–6
+- Hybridi: 3.5–5
+
+Sähköauto (kWh/100 km)
+- Pieni: 14–17
+- Perheauto: 17–21
+- SUV: 21–28
+
+Pakettiauto (l/100 km)
+- 8–12
+
+Kuorma-auto (l/100 km)
+- Kevyt: 15–25
+- Raskas: 25–40
