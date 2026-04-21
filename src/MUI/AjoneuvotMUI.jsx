@@ -158,7 +158,7 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
         ) : (
           <>
             {/* Valitun ajoneuvon tiedot */}
-            <Paper sx={{ p: 2, mb: 2 }}>
+            <Paper sx={{ p: 2, mb: 2, border: 2, borderColor: "primary.light" }}>
               <Typography variant="subtitle1" fontWeight="bold">
                 Valittu ajoneuvo
               </Typography>
