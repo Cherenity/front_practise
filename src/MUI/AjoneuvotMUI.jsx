@@ -14,6 +14,8 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from '@mui/material/IconButton';
 
+import { Link } from 'react-router';
+
 function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
   const [valittuId, setValittuId] = useState(null);
   const [hakusana, setHakusana] = useState("");
@@ -71,7 +73,11 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
           onChange={(e) => setHakusana(e.target.value)}
           sx={{ mb: 2, width: '50%' }}
         />
-        <IconButton color="primary" onClick={() => alert("Lisää ajoneuvo")}>
+        <IconButton 
+        color="primary"
+        component={Link} to="/ajoneuvolomake"
+        >
+
           <AddIcon fontSize="large" sx={{mb: 2}}/>
         </IconButton>
         </Box>
@@ -125,7 +131,9 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                 </CardContent>
 
                 <CardActions>
-                  <Button size="small" onClick={(e) => e.stopPropagation()}>
+                  <Button size="small"
+                  component ={Link} to={`/ajoneuvontiedot/${a.id}`} 
+                  onClick={(e) => e.stopPropagation()}>
                     Muokkaa
                   </Button>
                 </CardActions>
