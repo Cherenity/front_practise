@@ -58,7 +58,7 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
   );
 
   return (
-    <Box sx={{ display: "flex", gap: 2 }}>
+    <Box sx={{ display: "flex", gap: 2, p: 2 }}>
       {/* VASEN */}
       <Box sx={{ flex: 1 }}>
         <Typography variant="h6" sx={{ mb: 1 }}>

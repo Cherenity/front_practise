@@ -1,7 +1,3 @@
-import AjoneuvoLista from "./components/AjoneuvoLista";
-import Ajoneuvohaku from "./components/Ajoneuvohaku";
-import AjoneuvoLomake from "./components/AjoneuvoLomake";
-
 import AjoneuvotMUI from "./MUI/AjoneuvotMUI";
 import KatsastuksetMUI from "./MUI/KatsastuksetMUI";
 import AjoneuvoLomakeMUI from "./MUI/AjoneuvoLomakeMUI";
@@ -152,16 +148,15 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      {/* Box ja värit lisätty taustaväriä varten, pitää miettiä vielä tätä  ulkoasua */}
       <Box
         sx={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #cfdff1 0%, #abe4bc 100%)",
+          background: "linear-gradient(135deg, #9fcdfa 0%, #ffffff 50%, #d8f7db 100%)"
+,
         }}
       >
         <Stack direction="column" spacing={2}>
-          {/* Tuli himan kiire tehtävän kanssa, 
-        niin hyödynnetty aiempaa 6.2 tehtävää pohjana. */}
-
           <BrowserRouter>
             <Routes>
               <Route
