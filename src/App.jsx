@@ -212,14 +212,22 @@ function App() {
 }
 
 export default App;
-// Katsastukset voisi tulla myös suoraan ilman, että pitäisi lisätä erikseen tai muokata, pitää miettiä. Katsastukset lomakkeen nappuloista vain Peruuta toimii.
 
-// Käytetty nyt Roboto fonttia saattaa muuttua
-// npm install @fontsource/roboto
+// Käytössä Roboto-fontti (voi vielä muuttua).
+// Asennus: npm install @fontsource/roboto
 
-// Parannukset:
-// - Näytä pian vanhenevat katsastukset ylimpänä
-// - Selkeytä katsastustulosten ja huomioiden esitystä
-// - Lisää tietojen tarkistuksia/ toimivuutta
-// - Kehitä dashboardista dashboardia
-// - Paranna backendia ja routingia
+// Arvostan kehitysideoita, sillä muutamassa kohdassa tuli pieniä suunnittelu- ja ajatusblokkeja.
+// Projektissa on vielä selkeitä puutteita, mutta tavoitteena on korjata ne ennen viimeistä palautusta. Kokeilen miettiä myös ulkoasua, jos saisi hiottua vielä.
+
+// Parannusideoita jatkoon:
+// - Ajoneuvojen poisto pitää tehdä mahdolliseksi
+// - Lisää katsastuksia vain valituille ajoneuvoille ja lomakkeeseen voisi tuoda ajoneuvon tiedot automaattisesti. (Nyt Lisää katsastus erikseen)
+// - Näytä pian vanhenevat ja hylätyt katsastukset listan kärjessä 
+//   (tärkeää käytettävyyden ja toiminnallisuuden kannalta).
+// - Kehitä dashboardia lisäämällä hyödyllisiä visuaaleja ja selkeämpiä mittareita.
+// - Selkeytä katsastustulosten ja huomioiden esitystapaa.
+// - Lisää paluutoiminto ajoneuvo- ja katsastuslomakkeille, sekä mahdollisesti myös Toast-ilmoituksia.
+// - Paranna yleistä toimivuutta ja käytettävyyttä.
+
+// Lisäksi pohdintaa:
+// - Katsastukset voisi ehkä generoida automaattisesti ilman erillistä lisäämistä tai muokkaamista.
