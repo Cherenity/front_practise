@@ -16,7 +16,7 @@ import "@fontsource/roboto";
 import Typography from "@mui/material/Typography";
 // npm install @fontsource/roboto
 
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route } from "react-router";
 
 import DashboardMUI from "./MUI/DashboardMUI";
 
@@ -135,26 +135,27 @@ const katsastukset = [
 function App() {
   // ajoneuvokirjasto
 
-
   return (
-
     <ThemeProvider theme={theme}>
-      
       <Stack direction="column" spacing={2}>
         {/* Tuli himan kiire tehtävän kanssa, 
         niin hyödynnetty aiempaa 6.2 tehtävää pohjana. */}
 
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset} />}>
-              <Route index element={<DashboardMUI />} />  
+            <Route
+              path="/"
+              element={
+                <TabMUI ajoneuvot={ajoneuvot} katsastukset={katsastukset} />
+              }
+            >
+              <Route index element={<DashboardMUI />} />
+              <Route path="/ajoneuvolomake" element={<AjoneuvoLomake />} />
+              <Route path="/ajoneuvolomake/:id" element={<AjoneuvoLomake />} />
             </Route>
           </Routes>
         </BrowserRouter>
-    
       </Stack>
-
-
 
       {/* <Typography variant="h1">Tekstiä</Typography> */}
 
@@ -167,18 +168,15 @@ function App() {
 
 export default App;
 
-
 // Mahdollisia parannuksia, mitä voisi toteuttaa
-// Katsastukset: TÄRKEÄ LISÄ: tulisi näyttää lähiaikoina umpenevat katsastukset ylimpänä (Ottaa huomioon, että ei ole sen jälkeen katsastettu). Katsastuksien tuloksen ja huomioiden esitystapaa pitää vielä miettiä. 
+// Katsastukset: TÄRKEÄ LISÄ: tulisi näyttää lähiaikoina umpenevat katsastukset ylimpänä (Ottaa huomioon, että ei ole sen jälkeen katsastettu). Katsastuksien tuloksen ja huomioiden esitystapaa pitää vielä miettiä.
 
 // Ajoneuvot:
-
-// Dashboard enemmän hyödyllisiä visuaaleja 
+// Dashboard enemmän hyödyllisiä visuaaleja. Voisi toimia etusivuna, mistä saa hyvän yleiskuvan ajoneuvokannasta ja katsastuksista.
 
 // Backend / Routing paremmaksi
 
 // Lopuksi hieman parempaa ulkoasua koko sivustolle ja teeman muokkaamista.
-
 
 {
   /* 🚗🚙 Wroom Wroom 🚘🚚🚛 */
