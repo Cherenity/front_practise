@@ -11,6 +11,9 @@ import {
   TextField,
 } from "@mui/material";
 
+import AddIcon from '@mui/icons-material/Add';
+import IconButton from '@mui/material/IconButton';
+
 function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
   const [valittuId, setValittuId] = useState(null);
   const [hakusana, setHakusana] = useState("");
@@ -60,13 +63,19 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
           Ajoneuvot
         </Typography>
 
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
         <TextField
           label="Hae ajoneuvoa"
           fullWidth
           value={hakusana}
           onChange={(e) => setHakusana(e.target.value)}
-          sx={{ mb: 2 }}
+          sx={{ mb: 2, width: '50%' }}
         />
+        <IconButton color="primary" onClick={() => alert("Lisää ajoneuvo")}>
+          <AddIcon fontSize="large" sx={{mb: 2}}/>
+        </IconButton>
+        </Box>
+
 
         <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
           <Button
@@ -113,30 +122,11 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                   <Typography variant="body2" color="text.secondary">
                     {a.merkki} {a.malli}
                   </Typography>
-
-                  <Typography variant="body2" color="text.secondary">
-                    Tyyppi: {a.tyyppi}
-                  </Typography>
-
-                  <Typography variant="body2" color="text.secondary">
-                    Käyttöönottopäivä:{" "}
-                    {a.kayttoonottoPvm
-                      ? new Date(a.kayttoonottoPvm).toLocaleDateString("fi-FI")
-                      : "-"}
-                  </Typography>
                 </CardContent>
 
                 <CardActions>
                   <Button size="small" onClick={(e) => e.stopPropagation()}>
                     Muokkaa
-                  </Button>
-
-                  <Button
-                    size="small"
-                    color="error"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Poista
                   </Button>
                 </CardActions>
               </Card>
@@ -220,7 +210,7 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                         fontWeight: "bold",
                       }}
                     >
-                      Tulos: {k.tulos}
+                      {k.tulos}
                     </Typography>
                     <Typography variant="body2">
                       Kilometrit: {k.kilometrit}

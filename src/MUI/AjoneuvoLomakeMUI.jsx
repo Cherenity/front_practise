@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useParams } from "react-router";
+
 import {
   Button,
   TextField,
@@ -12,6 +14,9 @@ import {
 } from "@mui/material";
 
 function AjoneuvoLomakeMUI() {
+  const { id } = useParams();
+  const muokkaustila = Boolean(id);
+
   // Lomakkeen tiedot
   const [reknro, setReknro] = useState("");
   const [merkki, setMerkki] = useState("");
@@ -31,7 +36,7 @@ function AjoneuvoLomakeMUI() {
 
   const pakollisetKentat = [reknro, merkki, malli, tyyppi, kayttoonottoPvm];
 
-  const lisaaTiedot = () => {
+  const lisaaTaiPaivitaTiedot = () => {
     const onTyhja = pakollisetKentat.some((k) => !k.trim());
 
     if (onTyhja) {
@@ -41,7 +46,6 @@ function AjoneuvoLomakeMUI() {
       return;
     }
 
-    // Rekisterinumeron tarkistus
     if (!tarkistaRekNro(reknro)) {
       setViesti(
         "Rekisterinumero ei kelpaa. Käytä muotoa ABC-123, jossa 1-3 kirjainta, väliviiva ja 1-3 numeroa.",
@@ -49,7 +53,13 @@ function AjoneuvoLomakeMUI() {
       return;
     }
 
-    setViesti("Ajoneuvon tiedot tallennettiin.");
+    if (muokkaustila) {
+      // Päivitetään olemassa olevan ajoneuvon tiedot
+      setViesti("Ajoneuvon tiedot päivitettiin.");
+    } else {
+      // Lisätään uusi ajoneuvo
+      setViesti("Ajoneuvon tiedot tallennettiin.");
+    }
 
     setReknro("");
     setMerkki("");
@@ -79,7 +89,7 @@ function AjoneuvoLomakeMUI() {
       sx={{ width: 450, margin: "40px auto", p: 3 }}
     >
       <Typography variant="h5" sx={{ mb: 2, fontWeight: "bold" }}>
-        Ajoneuvolomake
+        {muokkaustila ? "Muokkaa ajoneuvon tietoja" : "Lisää ajoneuvo"}
       </Typography>
 
       <TextField
@@ -164,8 +174,12 @@ function AjoneuvoLomakeMUI() {
       />
 
       <Box display="flex" gap={2}>
-        <Button variant="outlined" color="primary" onClick={lisaaTiedot}>
-          Lisää
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={lisaaTaiPaivitaTiedot}
+        >
+          {muokkaustila ? "Tallenna muutokset" : "Lisää"}
         </Button>
 
         <Button variant="outlined" color="secondary" onClick={tyhjennaTiedot}>
