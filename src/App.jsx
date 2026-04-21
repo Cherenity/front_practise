@@ -22,22 +22,18 @@ const theme = createTheme(
   {
     palette: {
       primary: {
-        main: "#0a7a3c", // syvempi, rauhallisempi vihreä
-        light: "#4caf50", // pehmeämpi vihreä korostuksiin
-        dark: "#005c2a", // tumma vihreä hoveriin
-        contrastText: "#ffffff", // toimii hyvin vihreän kanssa
+        main: "#2a3927", 
+        contrastText: "#ffffff", 
       },
 
       secondary: {
-        main: "#5a6066", // tasapainoinen harmaa, ei liian kylmä
-        light: "#8b9197", // hoveriin
-        dark: "#3a3f44", // valitun tabin taustaan
-        contrastText: "#f2f2f2", // parempi kontrasti kuin #44494c
+        main: "#5a6066", 
+        contrastText: "#f2f2f2", 
       },
 
       text: {
-        primary: "#1a1a1a", // hyvä neutraali
-        secondary: "#4f4f4f", // toimii edelleen
+        primary: "#1a1a1a", 
+        secondary: "#4f4f4f", 
       },
     },
 
@@ -63,15 +59,15 @@ const theme = createTheme(
       MuiTab: {
         styleOverrides: {
           root: {
-            color: "#cccccc", // tekstin ja ikonien väri
+            color: "#ffffff", // tekstin ja ikonien väri
             minHeight: 48,
             padding: "8px 16px",
             "&.Mui-selected": {
-              color: "#75ff8a", // valitun tabin väri
-              backgroundColor: "rgba(117,255,138,0.1)", // kevyt tausta
+              color: "#9abced", // valitun tabin väri
+              backgroundColor: "#164238", // kevyt tausta
             },
             "&:hover": {
-              backgroundColor: "rgba(255,255,255,0.08)", // hover‑tausta
+              backgroundColor: "#213f42", // hover‑tausta
             },
           },
           iconWrapper: {
@@ -221,16 +217,13 @@ function App() {
 
 export default App;
 
-// Mahdollisia parannuksia, mitä voisi toteuttaa
-// Katsastukset: TÄRKEÄ LISÄ: tulisi näyttää lähiaikoina umpenevat katsastukset ylimpänä (Ottaa huomioon, että ei ole sen jälkeen katsastettu). Katsastuksien tuloksen ja huomioiden esitystapaa pitää vielä miettiä.
+// Käytetty nyt Roboto fonttia saattaa muuttua
+// npm install @fontsource/roboto
 
-// Ajoneuvot:
-// Dashboard enemmän hyödyllisiä visuaaleja. Voisi toimia etusivuna, mistä saa hyvän yleiskuvan ajoneuvokannasta ja katsastuksista.
+// Parannukset:
+// - Näytä pian vanhenevat katsastukset ylimpänä
+// - Selkeytä katsastustulosten ja huomioiden esitystä
+// - Lisää tietojen tarkistuksia/ toimivuutta
+// - Kehitä dashboardista dashboardia
+// - Paranna backendia ja routingia
 
-// Backend / Routing paremmaksi
-
-// Lopuksi hieman parempaa ulkoasua koko sivustolle ja teeman muokkaamista.
-
-{
-  /* 🚗🚙 Wroom Wroom 🚘🚚🚛 */
-}
