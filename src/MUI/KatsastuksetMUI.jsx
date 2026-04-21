@@ -14,6 +14,9 @@ import {
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+
+import { Link } from "react-router";
 
 function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
   const [hakusana, setHakusana] = useState("");
@@ -35,9 +38,7 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
     <Box sx={{ display: "flex", gap: 3, p: 2 }}>
       {/* VASEN PUOLI: KORTIT */}
       <Box sx={{ flex: 2 }}>
-        <Typography variant="h4">
-          Katsastukset
-        </Typography>
+        <Typography variant="h4">Katsastukset</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Katsastustiedot ja niiden muokkaus
         </Typography>
@@ -54,6 +55,20 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
             borderRadius: 1,
           }}
         />
+
+        <IconButton color="primary" component={Link} to="/katsastuslomake">
+          <AddIcon fontSize="large" sx={{ mb: 2 }} />
+        </IconButton>
+
+
+        {/* VANHA:<Button
+          sx={{ ml: 1 }}
+          variant="outlined"
+          component={Link}
+          to="/katsastuslomake"
+        >
+          Lisää katsastus
+        </Button> */}
 
         <Grid container spacing={3}>
           {naytettavatKatsastukset.map((k) => {
