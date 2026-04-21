@@ -160,7 +160,7 @@ function App() {
 
               <Route path="/katsastukset" element={<KatsastuksetMUI katsastukset={katsastukset} ajoneuvot={ajoneuvot} />} />
 
-              <Route path="/ajoneuvontiedot/:id" element={<AjoneuvoLomakeMUI/>} />
+              <Route path="/ajoneuvontiedot/:id" element={<AjoneuvoLomakeMUI ajoneuvot={ajoneuvot} />} />
               <Route path="/ajoneuvolomake" element={<AjoneuvoLomakeMUI/>} />
 
             </Route>

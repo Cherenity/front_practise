@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import { useEffect } from "react";
 
 import {
   Button,
@@ -13,7 +14,7 @@ import {
   Alert,
 } from "@mui/material";
 
-function AjoneuvoLomakeMUI() {
+function AjoneuvoLomakeMUI({ ajoneuvot }) {
   const { id } = useParams();
   const muokkaustila = Boolean(id);
 
@@ -35,6 +36,21 @@ function AjoneuvoLomakeMUI() {
   };
 
   const pakollisetKentat = [reknro, merkki, malli, tyyppi, kayttoonottoPvm];
+
+  useEffect(() => {
+    if (muokkaustila) {
+      const ajoneuvo = ajoneuvot.find((a) => a.id === Number(id));
+
+      if (ajoneuvo) {
+        setReknro(ajoneuvo.rekisterinumero);
+        setMerkki(ajoneuvo.merkki);
+        setMalli(ajoneuvo.malli);
+        setTyyppi(ajoneuvo.tyyppi);
+        setKayttoonottoPvm(ajoneuvo.kayttoonottoPvm);
+        setKaytossa(ajoneuvo.kaytossa);
+      }
+    }
+  }, [id, muokkaustila, ajoneuvot]);
 
   const lisaaTaiPaivitaTiedot = () => {
     const onTyhja = pakollisetKentat.some((k) => !k.trim());
