@@ -28,21 +28,22 @@ function TabMUI({ ajoneuvot, katsastukset }) {
           textColor="inherit"
           onChange={(e, val) => handleChange(e, val)}
         >
-          <Tab
-            label="Dashboard"
-            icon={<PieChartIcon />}
-            component={Link}
-            to="/"
-          />
-          <Tab 
+                    <Tab 
           label="Ajoneuvot" 
           icon={<DriveEtaIcon />}
           component={Link}
-          to="/ajoneuvot"
+          to="/"
           />
 
           <Tab 
           label="Katsastukset" icon={<CarRepairIcon />} component={Link} to="/katsastukset" />
+          <Tab
+            label="Dashboard"
+            icon={<PieChartIcon />}
+            component={Link}
+            to="/dashboard"
+          />
+
         </Tabs>
       </AppBar>
       <br />

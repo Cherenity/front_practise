@@ -22,18 +22,18 @@ const theme = createTheme(
   {
     palette: {
       primary: {
-        main: "#2a3927", 
-        contrastText: "#ffffff", 
+        main: "#2a3927",
+        contrastText: "#ffffff",
       },
 
       secondary: {
-        main: "#5a6066", 
-        contrastText: "#f2f2f2", 
+        main: "#5a6066",
+        contrastText: "#f2f2f2",
       },
 
       text: {
-        primary: "#1a1a1a", 
-        secondary: "#4f4f4f", 
+        primary: "#1a1a1a",
+        secondary: "#4f4f4f",
       },
     },
 
@@ -148,8 +148,8 @@ function App() {
       <Box
         sx={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #9fcdfa 0%, #ffffff 50%, #d8f7db 100%)"
-,
+          background:
+            "linear-gradient(135deg, #9fcdfa 0%, #ffffff 50%, #d8f7db 100%)",
         }}
       >
         <Stack direction="column" spacing={2}>
@@ -164,7 +164,7 @@ function App() {
                 <Route
                   index
                   element={
-                    <DashboardMUI
+                    <AjoneuvotMUI
                       ajoneuvot={ajoneuvot}
                       katsastukset={katsastukset}
                     />
@@ -172,9 +172,9 @@ function App() {
                 />
 
                 <Route
-                  path="/ajoneuvot"
+                  path="/dashboard"
                   element={
-                    <AjoneuvotMUI
+                    <DashboardMUI
                       ajoneuvot={ajoneuvot}
                       katsastukset={katsastukset}
                     />
@@ -205,11 +205,7 @@ function App() {
           </BrowserRouter>
         </Stack>
 
-        {/* <Typography variant="h1">Tekstiä</Typography> */}
-
-        {/* <TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset}/> */}
-
-        {/* shift + alt + f on format dokumentti muistiin */}
+        {/* shift + alt + f on format dokument*/}
       </Box>
     </ThemeProvider>
   );
@@ -226,4 +222,3 @@ export default App;
 // - Lisää tietojen tarkistuksia/ toimivuutta
 // - Kehitä dashboardista dashboardia
 // - Paranna backendia ja routingia
-
