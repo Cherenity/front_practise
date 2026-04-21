@@ -61,7 +61,7 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
     <Box sx={{ display: "flex", gap: 2, p: 2 }}>
       {/* VASEN */}
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h6" sx={{ mb: 1 }}>
+        <Typography variant="h4" sx={{ mb: 3 }}>
           Ajoneuvot
         </Typography>
 
@@ -71,7 +71,12 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
             fullWidth
             value={hakusana}
             onChange={(e) => setHakusana(e.target.value)}
-            sx={{ mb: 2, width: "50%", backgroundColor: "white", borderRadius: 1 }}
+            sx={{
+              mb: 2,
+              width: "50%",
+              backgroundColor: "white",
+              borderRadius: 1,
+            }}
           />
           <IconButton color="primary" component={Link} to="/ajoneuvolomake">
             <AddIcon fontSize="large" sx={{ mb: 2 }} />
@@ -125,27 +130,20 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                   </Typography>
                 </CardContent>
 
-                <CardActions>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    component={Link}
-                    to={`/ajoneuvontiedot/${a.id}`}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Muokkaa
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    component={Link}
-                    to={"/katsastuslomake"}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    Lisää katsastus
-                  </Button>
-                </CardActions>
-                
+                {valittuId === a.id && (
+                  <CardActions>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      component={Link}
+                      to={`/ajoneuvontiedot/${a.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Muokkaa
+                    </Button>
+
+                  </CardActions>
+                )}
               </Card>
             </Paper>
           ))}
@@ -154,9 +152,15 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
 
       {/* OIKEA */}
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h6" sx={{ mb: 1 }}>
-          Katsastukset
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+          <Typography variant="h4" sx={{ mb: 1 }}>
+            Katsastukset
+          </Typography>
+
+          <IconButton color="primary" component={Link} to="/katsastuslomake">
+            <AddIcon fontSize="large" />
+          </IconButton>
+        </Box>
 
         {!valittuAjoneuvo ? (
           <Paper sx={{ p: 2 }}>
@@ -214,8 +218,8 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                     <Typography variant="body2" sx={{ mb: 1 }}>
                       {"Voimassa asti: "}
 
-                      {k.katsastus_pvm
-                        ? new Date(k.katsastus_pvm).toLocaleDateString("fi-FI")
+                      {k.voimassa_asti
+                        ? new Date(k.voimassa_asti).toLocaleDateString("fi-FI")
                         : "-"}
                     </Typography>
 

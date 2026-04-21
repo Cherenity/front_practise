@@ -35,8 +35,11 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
     <Box sx={{ display: "flex", gap: 3, p: 2 }}>
       {/* VASEN PUOLI: KORTIT */}
       <Box sx={{ flex: 2 }}>
-        <Typography variant="h6" sx={{ mb: 1 }}>
+        <Typography variant="h4">
           Katsastukset
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Katsastustiedot ja niiden muokkaus
         </Typography>
 
         <TextField

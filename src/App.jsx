@@ -212,6 +212,7 @@ function App() {
 }
 
 export default App;
+// Katsastukset voisi tulla myös suoraan ilman, että pitäisi lisätä erikseen tai muokata, pitää miettiä. Katsastukset lomakkeen nappuloista vain Peruuta toimii.
 
 // Käytetty nyt Roboto fonttia saattaa muuttua
 // npm install @fontsource/roboto
