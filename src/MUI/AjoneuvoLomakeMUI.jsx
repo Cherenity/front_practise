@@ -190,7 +190,10 @@ function AjoneuvoLomakeMUI() {
       {viesti && (
         <Alert
           severity={
-            viesti === "Ajoneuvon tiedot tallennettiin." ? "success" : "warning"
+            viesti === "Ajoneuvon tiedot tallennettiin." ||
+            viesti === "Ajoneuvon tiedot päivitettiin."
+              ? "success"
+              : "warning"
           }
           sx={{ mt: 2 }}
         >
