@@ -16,10 +16,16 @@ import "@fontsource/roboto";
 import Typography from "@mui/material/Typography";
 // npm install @fontsource/roboto
 
+import { BrowserRouter, Routes, Route } from 'react-router';
+
+import DashboardMUI from "./MUI/DashboardMUI";
+
+import { Stack } from "@mui/material";
+
 const theme = createTheme({
   palette: {
-    primary: { main: "#50b2a2", contrastText: "#ffffff" },
-    secondary: { main: "#730a3b", contrastText: "#fa9da6" },
+    primary: { main: "#2f695f", contrastText: "#ffffff" },
+    secondary: { main: "#7c3102", contrastText: "#ff9696" },
     text: { primary: "#070707", secondary: "#1e2c21" },
   },
 
@@ -100,8 +106,8 @@ const katsastukset = [
   {
     id: 1,
     ajoneuvoId: 1,
-    katsastus_pvm: "2024-04-10",
-    voimassa_asti: "2025-04-10",
+    katsastus_pvm: "2023-04-10",
+    voimassa_asti: "2026-04-10",
     tulos: "Hyväksytty",
     kilometrit: 15000,
     huomiot: "Ei huomautettavaa",
@@ -129,11 +135,30 @@ const katsastukset = [
 function App() {
   // ajoneuvokirjasto
 
+
   return (
+
     <ThemeProvider theme={theme}>
+      
+      <Stack direction="column" spacing={2}>
+        {/* Tuli himan kiire tehtävän kanssa, 
+        niin hyödynnetty aiempaa 6.2 tehtävää pohjana. */}
+
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset} />}>
+              <Route index element={<DashboardMUI />} />  
+            </Route>
+          </Routes>
+        </BrowserRouter>
+    
+      </Stack>
+
+
+
       {/* <Typography variant="h1">Tekstiä</Typography> */}
 
-      <TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset}/>
+      {/* <TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset}/> */}
 
       {/* shift + alt + f on format dokumentti muistiin */}
     </ThemeProvider>
