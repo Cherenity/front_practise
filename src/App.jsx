@@ -1,8 +1,3 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-
 import AjoneuvoLista from "./components/AjoneuvoLista";
 import Ajoneuvohaku from "./components/Ajoneuvohaku";
 import AjoneuvoLomake from "./components/AjoneuvoLomake";
@@ -11,7 +6,6 @@ import AjoneuvotMUI from "./MUI/AjoneuvotMUI";
 import KatsastuksetMUI from "./MUI/KatsastuksetMUI";
 import AjoneuvoLomakeMUI from "./MUI/AjoneuvoLomakeMUI";
 import KatsastusLomakeMUI from "./MUI/KatsastusLomakeMUI";
-
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TabMUI from "./MUI/TabMUI";
@@ -22,61 +16,76 @@ import "@fontsource/roboto";
 import Typography from "@mui/material/Typography";
 // npm install @fontsource/roboto
 
-import { BrowserRouter, Routes, Route } from 'react-router';
+import { BrowserRouter, Routes, Route } from "react-router";
 
 import DashboardMUI from "./MUI/DashboardMUI";
 
 import { Stack } from "@mui/material";
 
-const theme = createTheme({
-  palette: {
-    primary: { main: "#2f695f", contrastText: "#ffffff" },
-    secondary: { main: "#7c3102", contrastText: "#ff9696" },
-    text: { primary: "#070707", secondary: "#1e2c21" },
-  },
+const theme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: "#0a7a3c", // syvempi, rauhallisempi vihreä
+        light: "#4caf50", // pehmeämpi vihreä korostuksiin
+        dark: "#005c2a", // tumma vihreä hoveriin
+        contrastText: "#ffffff", // toimii hyvin vihreän kanssa
+      },
 
-  typography: {
-    fontFamily: "Roboto, sans-serif",
-  },
+      secondary: {
+        main: "#5a6066", // tasapainoinen harmaa, ei liian kylmä
+        light: "#8b9197", // hoveriin
+        dark: "#3a3f44", // valitun tabin taustaan
+        contrastText: "#f2f2f2", // parempi kontrasti kuin #44494c
+      },
 
-  components: {
-    MuiTabs: {
-      styleOverrides: {
-        indicator: { backgroundColor: "#75ff8a", height: 8, borderRadius: 2 },
+      text: {
+        primary: "#1a1a1a", // hyvä neutraali
+        secondary: "#4f4f4f", // toimii edelleen
       },
     },
 
-    // MuiTab: {
-    //   styleOverrides: {
-    //     root: {
-    //       "&.Mui-selected": { color: "#087168", fontWeight: "bold" },
-    //     }, // root
-    //   },
-    // }, // MuiTab
+    typography: {
+      fontFamily: "Roboto, sans-serif",
+    },
 
-    // MuiMenu: {
-    //   styleOverrides: {
-    //     paper: {},
-    //   },
-    // }, // MuiMenu
+    components: {
+      MuiTabs: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "#1e1e1e", // koko tabbarin tausta
+            minHeight: 48,
+          },
+          indicator: {
+            backgroundColor: "#75ff8a",
+            height: 6,
+            borderRadius: 3,
+          },
+        },
+      },
 
-    // MuiListItemIcon: {
-    //   styleOverrides: {
-    //     root: {},
-    //   },
-    // }, // MuiListItemIcon
-
-    // MuiMenuItem: {
-    //   styleOverrides: {
-    //     root: {
-    //       "&:hover": {
-    //         "& .MuiListItemIcon-root": {},
-    //       },
-    //     }, // root
-    //   },
-    // }, //MuiMenuItem
+      MuiTab: {
+        styleOverrides: {
+          root: {
+            color: "#cccccc", // tekstin ja ikonien väri
+            minHeight: 48,
+            padding: "8px 16px",
+            "&.Mui-selected": {
+              color: "#75ff8a", // valitun tabin väri
+              backgroundColor: "rgba(117,255,138,0.1)", // kevyt tausta
+            },
+            "&:hover": {
+              backgroundColor: "rgba(255,255,255,0.08)", // hover‑tausta
+            },
+          },
+          iconWrapper: {
+            fontSize: "1.3rem", // isompi ikoni
+          },
+        },
+      },
+    },
   }, // components
-}); // theme
+); // theme
 
 const ajoneuvot = [
   {
@@ -138,61 +147,94 @@ const katsastukset = [
   },
 ];
 
-
-
 function App() {
   // ajoneuvokirjasto
 
   return (
-
     <ThemeProvider theme={theme}>
-      
-      <Stack direction="column" spacing={2}>
-        {/* Tuli himan kiire tehtävän kanssa, 
+      <Box
+        sx={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #cfdff1 0%, #abe4bc 100%)",
+        }}
+      >
+        <Stack direction="column" spacing={2}>
+          {/* Tuli himan kiire tehtävän kanssa, 
         niin hyödynnetty aiempaa 6.2 tehtävää pohjana. */}
 
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset} />}>
-              <Route index element={<DashboardMUI ajoneuvot={ajoneuvot} katsastukset={katsastukset}/>} />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <TabMUI ajoneuvot={ajoneuvot} katsastukset={katsastukset} />
+                }
+              >
+                <Route
+                  index
+                  element={
+                    <DashboardMUI
+                      ajoneuvot={ajoneuvot}
+                      katsastukset={katsastukset}
+                    />
+                  }
+                />
 
-              <Route path="/ajoneuvot" element={<AjoneuvotMUI ajoneuvot={ajoneuvot} katsastukset={katsastukset} />} />
+                <Route
+                  path="/ajoneuvot"
+                  element={
+                    <AjoneuvotMUI
+                      ajoneuvot={ajoneuvot}
+                      katsastukset={katsastukset}
+                    />
+                  }
+                />
 
-              <Route path="/katsastukset" element={<KatsastuksetMUI katsastukset={katsastukset} ajoneuvot={ajoneuvot} />} />
+                <Route
+                  path="/katsastukset"
+                  element={
+                    <KatsastuksetMUI
+                      katsastukset={katsastukset}
+                      ajoneuvot={ajoneuvot}
+                    />
+                  }
+                />
 
-              <Route path="/ajoneuvontiedot/:id" element={<AjoneuvoLomakeMUI ajoneuvot={ajoneuvot} />} />
-              <Route path="/ajoneuvolomake" element={<AjoneuvoLomakeMUI/>} />
+                <Route
+                  path="/ajoneuvontiedot/:id"
+                  element={<AjoneuvoLomakeMUI ajoneuvot={ajoneuvot} />}
+                />
+                <Route path="/ajoneuvolomake" element={<AjoneuvoLomakeMUI />} />
+                <Route
+                  path="/katsastuslomake"
+                  element={<KatsastusLomakeMUI ajoneuvot={ajoneuvot} />}
+                />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </Stack>
 
-            </Route>
-          </Routes>
-        </BrowserRouter>
-    
-      </Stack>
+        {/* <Typography variant="h1">Tekstiä</Typography> */}
 
+        {/* <TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset}/> */}
 
-
-      {/* <Typography variant="h1">Tekstiä</Typography> */}
-
-      {/* <TabMUI ajoneuvot={ajoneuvot} katsastukset = {katsastukset}/> */}
-
-      {/* shift + alt + f on format dokumentti muistiin */}
+        {/* shift + alt + f on format dokumentti muistiin */}
+      </Box>
     </ThemeProvider>
   );
 }
 
 export default App;
 
-
 // Mahdollisia parannuksia, mitä voisi toteuttaa
-// Katsastukset: TÄRKEÄ LISÄ: tulisi näyttää lähiaikoina umpenevat katsastukset ylimpänä (Ottaa huomioon, että ei ole sen jälkeen katsastettu). Katsastuksien tuloksen ja huomioiden esitystapaa pitää vielä miettiä. 
+// Katsastukset: TÄRKEÄ LISÄ: tulisi näyttää lähiaikoina umpenevat katsastukset ylimpänä (Ottaa huomioon, että ei ole sen jälkeen katsastettu). Katsastuksien tuloksen ja huomioiden esitystapaa pitää vielä miettiä.
 
-// Ajoneuvot: 
-// Dashboard enemmän hyödyllisiä visuaaleja. Voisi toimia etusivuna, mistä saa hyvän yleiskuvan ajoneuvokannasta ja katsastuksista. 
+// Ajoneuvot:
+// Dashboard enemmän hyödyllisiä visuaaleja. Voisi toimia etusivuna, mistä saa hyvän yleiskuvan ajoneuvokannasta ja katsastuksista.
 
 // Backend / Routing paremmaksi
 
 // Lopuksi hieman parempaa ulkoasua koko sivustolle ja teeman muokkaamista.
-
 
 {
   /* 🚗🚙 Wroom Wroom 🚘🚚🚛 */

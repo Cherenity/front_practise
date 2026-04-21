@@ -11,10 +11,10 @@ import {
   TextField,
 } from "@mui/material";
 
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
+import AddIcon from "@mui/icons-material/Add";
+import IconButton from "@mui/material/IconButton";
 
-import { Link } from 'react-router';
+import { Link } from "react-router";
 
 function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
   const [valittuId, setValittuId] = useState(null);
@@ -65,23 +65,18 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
           Ajoneuvot
         </Typography>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-        <TextField
-          label="Hae ajoneuvoa"
-          fullWidth
-          value={hakusana}
-          onChange={(e) => setHakusana(e.target.value)}
-          sx={{ mb: 2, width: '50%' }}
-        />
-        <IconButton 
-        color="primary"
-        component={Link} to="/ajoneuvolomake"
-        >
-
-          <AddIcon fontSize="large" sx={{mb: 2}}/>
-        </IconButton>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+          <TextField
+            label="Hae ajoneuvoa"
+            fullWidth
+            value={hakusana}
+            onChange={(e) => setHakusana(e.target.value)}
+            sx={{ mb: 2, width: "50%", backgroundColor: "white", borderRadius: 1 }}
+          />
+          <IconButton color="primary" component={Link} to="/ajoneuvolomake">
+            <AddIcon fontSize="large" sx={{ mb: 2 }} />
+          </IconButton>
         </Box>
-
 
         <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
           <Button
@@ -131,12 +126,26 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                 </CardContent>
 
                 <CardActions>
-                  <Button size="small"
-                  component ={Link} to={`/ajoneuvontiedot/${a.id}`} 
-                  onClick={(e) => e.stopPropagation()}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    component={Link}
+                    to={`/ajoneuvontiedot/${a.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     Muokkaa
                   </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    component={Link}
+                    to={"/katsastuslomake"}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Lisää katsastus
+                  </Button>
                 </CardActions>
+                
               </Card>
             </Paper>
           ))}
@@ -156,7 +165,9 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
         ) : (
           <>
             {/* Valitun ajoneuvon tiedot */}
-            <Paper sx={{ p: 2, mb: 2, border: 2, borderColor: "primary.light" }}>
+            <Paper
+              sx={{ p: 2, mb: 2, border: 2, borderColor: "primary.light" }}
+            >
               <Typography variant="subtitle1" fontWeight="bold">
                 Valittu ajoneuvo
               </Typography>

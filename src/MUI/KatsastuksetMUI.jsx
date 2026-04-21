@@ -32,7 +32,7 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
   });
 
   return (
-    <Box sx={{ display: "flex", gap: 3, p: 2 }}>
+    <Box sx={{ display: "flex", gap: 3, p: 2, }}>
       {/* VASEN PUOLI: KORTIT */}
       <Box sx={{ flex: 2 }}>
         <TextField
@@ -40,7 +40,7 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
           fullWidth
           value={hakusana}
           onChange={(e) => setHakusana(e.target.value)}
-          sx={{ mb: 3 }}
+          sx={{ mb: 3, width: "30%", backgroundColor: "white", borderRadius: 1 }}
         />
 
         <Grid container spacing={3}>
@@ -105,6 +105,7 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
               fullWidth
               sx={{ mb: 2 }}
               value={muokattava.katsastus_pvm}
+              
               onChange={(e) =>
                 setMuokattava({
                   ...muokattava,
