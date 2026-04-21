@@ -61,8 +61,11 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
     <Box sx={{ display: "flex", gap: 2, p: 2 }}>
       {/* VASEN */}
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
+        <Typography variant="h4">
           Ajoneuvot
+        </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Ajoneuvot ja niiden katsastukset
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
@@ -141,7 +144,6 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
                     >
                       Muokkaa
                     </Button>
-
                   </CardActions>
                 )}
               </Card>
@@ -152,15 +154,15 @@ function AjoneuvotMUI({ ajoneuvot, katsastukset }) {
 
       {/* OIKEA */}
       <Box sx={{ flex: 1 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+        {/* <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
           <Typography variant="h4" sx={{ mb: 1 }}>
             Katsastukset
-          </Typography>
-
-          <IconButton color="primary" component={Link} to="/katsastuslomake">
-            <AddIcon fontSize="large" />
-          </IconButton>
-        </Box>
+          </Typography> 
+            Siirretty katsastuksiin
+       <Button variant="outlined" component={Link} to="/katsastuslomake">
+            Lisää katsastus
+          </Button> 
+        </Box>*/}
 
         {!valittuAjoneuvo ? (
           <Paper sx={{ p: 2 }}>
