@@ -75,7 +75,7 @@ function KatsastuksetMUI({ katsastukset, ajoneuvot }) {
             const ajoneuvo = ajoneuvot.find((a) => a.id === k.ajoneuvoId);
 
             return (
-              <Grid key={k.id} item xs={12} sm={6} md={4}>
+              <Grid key={k.id}>
                 <Card sx={{ p: 1 }}>
                   <CardContent>
                     <Typography variant="h6" sx={{ mb: 1 }}>
