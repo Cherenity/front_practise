@@ -194,6 +194,18 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
           setViesti("");
         }}
 
+                slotProps={{
+          inputLabel: {
+            htmlFor: "ajoneuvo",
+          },
+          select: {
+            inputProps: {
+              id: "ajoneuvo",
+              name: "ajoneuvo",
+            },
+          },
+        }}
+
         sx={{ mb: 2 }}
       >
 
@@ -274,6 +286,18 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
           setTulos(e.target.value);
           setViesti("");
         }}
+                slotProps={{
+          inputLabel: {
+            htmlFor: "tulos",
+          },
+          select: {
+            inputProps: {
+              id: "tulos",
+              name: "tulos",
+            },
+          },
+        }}
+        
 
         sx={{ mb: 2 }}
       >
@@ -296,6 +320,8 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
       {/* KILOMETRIT */}
       <TextField
         label="Kilometrit"
+        name="kilometrit"
+        id="kilometrit"
         type="number"
         fullWidth
         value={kilometrit}
@@ -312,6 +338,8 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
       {/* HUOMIOT */}
       <TextField
         label="Huomiot"
+        name="huomiot"
+        id="huomiot"
         fullWidth
         multiline
         rows={3}
@@ -321,7 +349,6 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
           setHuomiot(e.target.value);
           setViesti("");
         }}
-
         sx={{ mb: 2 }}
       />
 

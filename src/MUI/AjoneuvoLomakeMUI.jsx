@@ -124,13 +124,7 @@ function AjoneuvoLomakeMUI() {
 
   const lisaaTaiPaivitaTiedot = async () => {
     // Kentät, jotka käyttäjän on pakko täyttää ennen tallennusta.
-    const pakollisetKentat = [
-      reknro,
-      merkki,
-      malli,
-      tyyppi,
-      kayttoonottoPvm,
-    ];
+    const pakollisetKentat = [reknro, merkki, malli, tyyppi, kayttoonottoPvm];
 
     // Tarkistetaan, onko jokin pakollinen kenttä tyhjä.
     // trim() poistaa alusta ja lopusta välilyönnit.
@@ -290,13 +284,25 @@ function AjoneuvoLomakeMUI() {
       {/* select tekee TextFieldistä alasvetovalikon. */}
       <TextField
         select
-        label="Tyyppi"
         fullWidth
+        label="Tyyppi"
+        name="tyyppi"
         value={tyyppi}
         onChange={(e) => {
           setTyyppi(e.target.value);
           setViesti("");
           setOnnistui(false);
+        }}
+        slotProps={{
+          inputLabel: {
+            htmlFor: "tyyppi",
+          },
+          select: {
+            inputProps: {
+              id: "tyyppi",
+              name: "tyyppi",
+            },
+          },
         }}
         sx={{ mb: 2 }}
       >
