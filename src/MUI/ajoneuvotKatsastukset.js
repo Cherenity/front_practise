@@ -2,18 +2,6 @@ import axios from 'axios';
 
 const palvelin = 'http://localhost:8080/';
 
-// Testireitti
-export const getTesti = async () => {
-  try {
-    const response = await axios.get(palvelin);
-    return response;
-  } catch (error) {
-    return {
-      status: error.response?.status,
-      message: 'Testihaku ei onnistunut: ' + error.message
-    };
-  }
-};
 
 // Haetaan kaikki ajoneuvot
 export const getAjoneuvot = async () => {
@@ -106,22 +94,6 @@ export const getKatsastukset = async () => {
     return {
       status: error.response?.status,
       message: 'Katsastusten haku ei onnistunut: ' + error.message
-    };
-  }
-};
-
-// Haetaan yhden ajoneuvon katsastukset
-export const getAjoneuvonKatsastukset = async (id) => {
-  try {
-    const response = await axios.get(
-      palvelin + 'katsastus/ajoneuvo/' + id
-    );
-
-    return response;
-  } catch (error) {
-    return {
-      status: error.response?.status,
-      message: 'Ajoneuvon katsastusten haku ei onnistunut: ' + error.message
     };
   }
 };
