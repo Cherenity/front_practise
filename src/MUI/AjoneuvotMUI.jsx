@@ -9,11 +9,15 @@ import {
   Stack,
   Paper,
   TextField,
+  Switch,
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DriveEtaIcon from "@mui/icons-material/DriveEta";
+
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import { Link } from "react-router";
 
@@ -29,6 +33,7 @@ function AjoneuvotMUI() {
   const [valittuId, setValittuId] = useState(null);
   const [hakusana, setHakusana] = useState("");
   const [suodatin, setSuodatin] = useState("kaikki");
+  const [kaytossa, setKaytossa] = useState(false);
 
   // tallennetaan mahdollinen virhe ja lataustila
   const [virhe, setVirhe] = useState("");
@@ -92,8 +97,12 @@ function AjoneuvotMUI() {
     // tarkistetaan täsmääkö ajoneuvon tyyppi valittuun suodattimeen
     const osuuTyyppiin = suodatin === "kaikki" || suodatin === tyyppi;
 
+    const ajoneuvoKaytossa = Number(a.kaytossa) === 1;
+
+    const osuuKaytossaSuodattimeen = !kaytossa || ajoneuvoKaytossa;
+
     // palautetaan vain ajoneuvot, jotka täsmäävät hakuun ja suodattimeen
-    return osuuHakuun && osuuTyyppiin;
+    return osuuHakuun && osuuTyyppiin && osuuKaytossaSuodattimeen;
   });
 
   // tyhjennetään valinta, jos valittu ajoneuvo ei enää näy suodatetuissa tuloksissa
@@ -136,12 +145,13 @@ function AjoneuvotMUI() {
 
   return (
     <Box sx={{ display: "flex", gap: 2, p: 2 }}>
-
       {/* vasen puoli, jossa näytetään ajoneuvolista */}
       <Box sx={{ flex: 1 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <DriveEtaIcon sx={{ fontSize: 40, color: "primary.main" }} />
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>Ajoneuvot</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            Ajoneuvot
+          </Typography>
         </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -151,7 +161,7 @@ function AjoneuvotMUI() {
         {/* hakukenttä ja uuden ajoneuvon lisäyspainike */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
           <TextField
-            label="Hae ajoneuvoa"
+            label="Hae rekisterinumerolla, merkillä tai mallilla"
             fullWidth
             value={hakusana}
             onChange={(e) => setHakusana(e.target.value)}
@@ -163,6 +173,7 @@ function AjoneuvotMUI() {
             }}
           />
 
+          {/* uusi ajoneuvo -painike, joka vie ajoneuvolomakkeelle       */}
           <IconButton color="primary" component={Link} to="/ajoneuvolomake">
             <AddIcon fontSize="large" sx={{ mb: 2 }} />
           </IconButton>
@@ -190,6 +201,14 @@ function AjoneuvotMUI() {
           >
             Pakettiautot
           </Button>
+
+          <Box display="flex" alignItems="center" gap={1}>
+            <Switch
+              checked={kaytossa}
+              onChange={(e) => setKaytossa(e.target.checked)}
+            />
+            <Typography>{kaytossa ? "Käytössä" : "Ei käytössä"}</Typography>
+          </Box>
         </Box>
 
         {/* näytetään suodatetut ajoneuvot listana */}
@@ -207,17 +226,37 @@ function AjoneuvotMUI() {
                 borderColor: a.id === valittuId ? "primary.main" : "divider",
                 transition: "all 0.2s ease",
               }}
-            >   
+            >
               {/* elavevation poistaa Card-komponentin varjostuksen */}
               <Card elevation={0}>
                 <CardContent>
-                  {/* näytetään ajoneuvon rekisterinumero */}
-                  <Typography fontWeight="bold">{a.rekisterinumero}</Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box>
+                      {/* näytetään ajoneuvon rekisterinumero */}
+                      <Typography fontWeight="bold">
+                        {a.rekisterinumero}
+                      </Typography>
 
-                  {/* näytetään ajoneuvon merkki ja malli */}
-                  <Typography variant="body2" color="text.secondary">
-                    {a.merkki} {a.malli}
-                  </Typography>
+                      {/* näytetään ajoneuvon merkki ja malli */}
+                      <Typography variant="body2" color="text.secondary">
+                        {a.merkki} {a.malli}
+                      </Typography>
+                    </Box>
+
+                    {Number(a.kaytossa) === 1 ? (
+                      <CheckCircleIcon
+                        sx={{ color: "success.main", fontSize: 32 }}
+                      />
+                    ) : (
+                      <CancelIcon sx={{ color: "error.main", fontSize: 32 }} />
+                    )}
+                  </Box>
                 </CardContent>
 
                 {/* näytetään muokkauspainike vain valitulle ajoneuvolle */}
@@ -228,6 +267,7 @@ function AjoneuvotMUI() {
                       variant="outlined"
                       component={Link}
                       to={`/ajoneuvontiedot/${a.id}`}
+                      // estetään tapahtuman leviämisen, jotta kortti ei valitse uudestaan klikattaessa muokkauspainiketta
                       onClick={(e) => e.stopPropagation()}
                     >
                       Muokkaa
@@ -239,7 +279,6 @@ function AjoneuvotMUI() {
           ))}
         </Stack>
       </Box>
-
 
       {/* oikea puoli, jossa näytetään valitun ajoneuvon tiedot */}
       <Box sx={{ flex: 1 }}>
