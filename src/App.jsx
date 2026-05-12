@@ -1,22 +1,22 @@
+
 import AjoneuvotMUI from "./MUI/AjoneuvotMUI";
 import KatsastuksetMUI from "./MUI/KatsastuksetMUI";
+
+// Lomakkeet
 import AjoneuvoLomakeMUI from "./MUI/AjoneuvoLomakeMUI";
 import KatsastusLomakeMUI from "./MUI/KatsastusLomakeMUI";
 
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import DashboardMUI from "./MUI/DashboardMUI";
 import TabMUI from "./MUI/TabMUI";
 
-import Box from "@mui/material/Box";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 
 import "@fontsource/roboto";
-import Typography from "@mui/material/Typography";
 // npm install @fontsource/roboto
 
 import { BrowserRouter, Routes, Route } from "react-router";
-
-import DashboardMUI from "./MUI/DashboardMUI";
-
-import { Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 // teema
 const theme = createTheme(
@@ -146,7 +146,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* Box ja värit lisätty taustaväriä varten, pitää miettiä vielä tätä  ulkoasua */}
       <Box
         sx={{
           minHeight: "100vh",
