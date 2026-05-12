@@ -125,18 +125,16 @@ const tallennaMuokkaus = async () => {
     }
   };
 
-  const haku = hakusana.toLowerCase();
+  const haku = hakusana.toUpperCase();
 
   const format = (pvm) =>
     pvm ? new Date(pvm).toLocaleDateString("fi-FI") : "-";
 
-  // =========================
-  // SUODATUS REKISTERINUMEROLLA
-  // =========================
 
+  // suodatus rekisterinumeron perusteella, huomioidaan myös ajoneuvotiedot
   const naytettavatKatsastukset = katsastukset.filter((k) => {
     const ajoneuvo = ajoneuvot.find((a) => a.id === k.ajoneuvoId);
-    const rek = ajoneuvo?.rekisterinumero?.toLowerCase() ?? "";
+    const rek = ajoneuvo?.rekisterinumero?.toUpperCase() ?? "";
     return rek.includes(haku);
   });
 
