@@ -16,34 +16,43 @@ import IconButton from "@mui/material/IconButton";
 
 import { Link } from "react-router";
 
+// kantakäsittelin funktiot ajoneuvojen ja katsastusten hakemiseen
 import { getAjoneuvot, getKatsastukset } from "../MUI/ajoneuvotKatsastukset";
 
 function AjoneuvotMUI() {
+  // tallennetaan ajoneuvot ja katsastukset stateen
   const [ajoneuvot, setAjoneuvot] = useState([]);
   const [katsastukset, setKatsastukset] = useState([]);
 
+  // tallennetaan valittu ajoneuvo, hakusana ja aktiivinen suodatin
   const [valittuId, setValittuId] = useState(null);
   const [hakusana, setHakusana] = useState("");
   const [suodatin, setSuodatin] = useState("kaikki");
 
+  // tallennetaan mahdollinen virhe ja lataustila
   const [virhe, setVirhe] = useState("");
   const [ladataan, setLadataan] = useState(true);
 
+  // haetaan ajoneuvot ja katsastukset, kun komponentti avataan
   useEffect(() => {
     const haeTiedot = async () => {
       try {
+        // aloitetaan lataus ja tyhjennetään vanha virhe
         setLadataan(true);
         setVirhe("");
 
+        // haetaan ajoneuvot ja katsastukset palvelusta
         const ajoneuvoResponse = await getAjoneuvot();
         const katsastusResponse = await getKatsastukset();
 
+        // tallennetaan ajoneuvot, jos haku onnistuu
         if (ajoneuvoResponse.status === 200) {
           setAjoneuvot(ajoneuvoResponse.data);
         } else {
           setVirhe(ajoneuvoResponse.message || "Ajoneuvojen haku epäonnistui");
         }
 
+        // tallennetaan katsastukset, jos haku onnistuu
         if (katsastusResponse.status === 200) {
           setKatsastukset(katsastusResponse.data);
         } else {
@@ -52,8 +61,10 @@ function AjoneuvotMUI() {
           );
         }
       } catch (error) {
+        // näytetään virhe, jos tietojen haku epäonnistuu
         setVirhe("Tietojen haku epäonnistui: " + error.message);
       } finally {
+        // lopetetaan lataus aina haun jälkeen
         setLadataan(false);
       }
     };
@@ -61,37 +72,50 @@ function AjoneuvotMUI() {
     haeTiedot();
   }, []);
 
+  // muutetaan hakusana pieniksi kirjaimiksi hakua varten
   const haku = hakusana.toLowerCase();
 
+  // suodatetaan ajoneuvot hakusanan ja tyypin perusteella
   const suodatetutAjoneuvot = ajoneuvot.filter((a) => {
+    // muutetaan hakukentät pieniksi kirjaimiksi ja korvataan tyhjät arvot tyhjällä merkkijonolla
     const tekstit = [a.rekisterinumero, a.merkki, a.malli].map((x) =>
       (x ?? "").toLowerCase(),
     );
 
+    // muutetaan tyyppi pieniksi kirjaimiksi ja korvataan tyhjä arvo
     const tyyppi = (a.tyyppi ?? "").toLowerCase();
 
+    // käy taulukon arvoja läpi ja tarkistaa, täyttääkö edes yksi arvo annetun ehdon
     const osuuHakuun = tekstit.some((t) => t.includes(haku));
+
+    // tarkistetaan täsmääkö ajoneuvon tyyppi valittuun suodattimeen
     const osuuTyyppiin = suodatin === "kaikki" || suodatin === tyyppi;
 
+    // palautetaan vain ajoneuvot, jotka täsmäävät hakuun ja suodattimeen
     return osuuHakuun && osuuTyyppiin;
   });
 
+  // tyhjennetään valinta, jos valittu ajoneuvo ei enää näy suodatetuissa tuloksissa
   useEffect(() => {
     if (!suodatetutAjoneuvot.some((a) => a.id === valittuId)) {
       setValittuId(null);
     }
   }, [suodatetutAjoneuvot, valittuId]);
 
+  // valitaan ajoneuvo tai poistetaan valinta, jos samaa klikataan uudelleen
   const handleValinta = (id) => {
     setValittuId(valittuId === id ? null : id);
   };
 
+  // etsitään valitun ajoneuvon tiedot id:n perusteella
   const valittuAjoneuvo = ajoneuvot.find((a) => a.id === valittuId);
 
+  // haetaan valitulle ajoneuvolle kuuluvat katsastukset
   const valitunKatsastukset = katsastukset.filter(
     (k) => Number(k.ajoneuvoId) === Number(valittuId),
   );
 
+  // näytetään latausteksti, kun tietoja haetaan
   if (ladataan) {
     return (
       <Box sx={{ p: 2 }}>
@@ -100,6 +124,7 @@ function AjoneuvotMUI() {
     );
   }
 
+  // näytetään virheilmoitus, jos tietojen haussa tapahtuu virhe
   if (virhe) {
     return (
       <Box sx={{ p: 2 }}>
@@ -110,7 +135,7 @@ function AjoneuvotMUI() {
 
   return (
     <Box sx={{ display: "flex", gap: 2, p: 2 }}>
-      {/* VASEN */}
+      {/* vasen puoli, jossa näytetään ajoneuvolista */}
       <Box sx={{ flex: 1 }}>
         <Typography variant="h4">Ajoneuvot</Typography>
 
@@ -118,6 +143,7 @@ function AjoneuvotMUI() {
           Ajoneuvot ja niiden katsastukset
         </Typography>
 
+        {/* hakukenttä ja uuden ajoneuvon lisäyspainike */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
           <TextField
             label="Hae ajoneuvoa"
@@ -137,6 +163,7 @@ function AjoneuvotMUI() {
           </IconButton>
         </Box>
 
+        {/* ajoneuvotyypin suodatinpainikkeet */}
         <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
           <Button
             variant={suodatin === "kaikki" ? "contained" : "outlined"}
@@ -160,6 +187,7 @@ function AjoneuvotMUI() {
           </Button>
         </Box>
 
+        {/* näytetään suodatetut ajoneuvot listana */}
         <Stack spacing={2}>
           {suodatetutAjoneuvot.map((a) => (
             <Paper
@@ -174,16 +202,20 @@ function AjoneuvotMUI() {
                 borderColor: a.id === valittuId ? "primary.main" : "divider",
                 transition: "all 0.2s ease",
               }}
-            >
+            >   
+              {/* elavevation poistaa Card-komponentin varjostuksen */}
               <Card elevation={0}>
                 <CardContent>
+                  {/* näytetään ajoneuvon rekisterinumero */}
                   <Typography fontWeight="bold">{a.rekisterinumero}</Typography>
 
+                  {/* näytetään ajoneuvon merkki ja malli */}
                   <Typography variant="body2" color="text.secondary">
                     {a.merkki} {a.malli}
                   </Typography>
                 </CardContent>
 
+                {/* näytetään muokkauspainike vain valitulle ajoneuvolle */}
                 {valittuId === a.id && (
                   <CardActions>
                     <Button
@@ -203,14 +235,16 @@ function AjoneuvotMUI() {
         </Stack>
       </Box>
 
-      {/* OIKEA */}
+      {/* oikea puoli, jossa näytetään valitun ajoneuvon tiedot */}
       <Box sx={{ flex: 1 }}>
         {!valittuAjoneuvo ? (
+          // näytetään ohjeteksti, jos ajoneuvoa ei ole valittu
           <Paper sx={{ p: 2 }}>
             <Typography>Valitse ajoneuvo</Typography>
           </Paper>
         ) : (
           <>
+            {/* valitun ajoneuvon perustiedot */}
             <Paper
               sx={{ p: 2, mb: 2, border: 2, borderColor: "primary.light" }}
             >
@@ -238,14 +272,17 @@ function AjoneuvotMUI() {
               </Typography>
             </Paper>
 
+            {/* näytetään ilmoitus, jos valitulla ajoneuvolla ei ole katsastuksia */}
             {valitunKatsastukset.length === 0 ? (
               <Paper sx={{ p: 2 }}>
                 <Typography>Ei katsastuksia</Typography>
               </Paper>
             ) : (
+              // näytetään valitun ajoneuvon katsastukset
               <Stack spacing={2}>
                 {valitunKatsastukset.map((k) => (
                   <Paper key={k.id} sx={{ p: 2 }}>
+                    {/* näytetään katsastuspäivä */}
                     <Typography variant="body2" sx={{ mb: 0 }}>
                       Katsastuspäivä:{" "}
                       {k.katsastus_pvm
@@ -253,6 +290,7 @@ function AjoneuvotMUI() {
                         : "-"}
                     </Typography>
 
+                    {/* näytetään katsastuksen voimassaolopäivä */}
                     <Typography variant="body2" sx={{ mb: 1 }}>
                       Voimassa asti:{" "}
                       {k.voimassa_asti
@@ -260,6 +298,7 @@ function AjoneuvotMUI() {
                         : "-"}
                     </Typography>
 
+                    {/* näytetään katsastuksen tulos eri värillä tuloksen mukaan */}
                     <Typography
                       variant="body2"
                       sx={{
@@ -273,10 +312,12 @@ function AjoneuvotMUI() {
                       {k.tulos}
                     </Typography>
 
+                    {/* näytetään ajokilometrit */}
                     <Typography variant="body2">
                       Kilometrit: {k.kilometrit}
                     </Typography>
 
+                    {/* näytetään katsastuksen huomiot */}
                     <Typography variant="body2">
                       Huomiot: {k.huomiot}
                     </Typography>
