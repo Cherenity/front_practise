@@ -56,50 +56,48 @@ function KatsastuksetMUI() {
     haeAjoneuvot();
   }, []);
 
+  const tallennaMuokkaus = async () => {
+    try {
+      // Varmistetaan, että ajoneuvoId on olemassa
+      if (!muokattava.ajoneuvoId) {
+        console.error("ajoneuvoId puuttuu muokattavasta!");
+        setViesti("Virhe: ajoneuvoId puuttuu.");
+        return;
+      }
 
+      const paivitettava = {
+        ajoneuvoId: Number(muokattava.ajoneuvoId),
+        katsastus_pvm: muokattava.katsastus_pvm,
+        voimassa_asti: muokattava.voimassa_asti,
+        tulos: muokattava.tulos,
+        kilometrit: Number(muokattava.kilometrit),
+        huomiot: muokattava.huomiot ?? "",
+      };
 
-const tallennaMuokkaus = async () => {
-  try {
-    // Varmistetaan, että ajoneuvoId on olemassa
-    if (!muokattava.ajoneuvoId) {
-      console.error("ajoneuvoId puuttuu muokattavasta!");
-      setViesti("Virhe: ajoneuvoId puuttuu.");
-      return;
+      console.log("Lähetetään PUT-data:", paivitettava);
+
+      const response = await axios.put(
+        `${url}/katsastus/update/${muokattava.id}`,
+        paivitettava,
+      );
+
+      if (response.data.count > 0) {
+        setViesti("Katsastus päivitettiin.");
+        setMuokattava(null);
+        haeKatsastukset();
+      } else {
+        setViesti("Katsastusta ei päivitetty.");
+      }
+    } catch (error) {
+      console.error("Muokkaus epäonnistui:", error);
+      setViesti("Katsastuksen muokkaus epäonnistui.");
     }
-
-    const paivitettava = {
-      ajoneuvoId: Number(muokattava.ajoneuvoId),
-      katsastus_pvm: muokattava.katsastus_pvm,
-      voimassa_asti: muokattava.voimassa_asti,
-      tulos: muokattava.tulos,
-      kilometrit: Number(muokattava.kilometrit),
-      huomiot: muokattava.huomiot ?? "",
-    };
-
-    console.log("Lähetetään PUT-data:", paivitettava);
-
-    const response = await axios.put(
-      `${url}/katsastus/update/${muokattava.id}`,
-      paivitettava
-    );
-
-    if (response.data.count > 0) {
-      setViesti("Katsastus päivitettiin.");
-      setMuokattava(null);
-      haeKatsastukset();
-    } else {
-      setViesti("Katsastusta ei päivitetty.");
-    }
-  } catch (error) {
-    console.error("Muokkaus epäonnistui:", error);
-    setViesti("Katsastuksen muokkaus epäonnistui.");
-  }
-};
+  };
 
   const poistaKatsastus = async () => {
     try {
       const response = await axios.delete(
-        `${url}/katsastus/delete/${muokattava.id}`
+        `${url}/katsastus/delete/${muokattava.id}`,
       );
 
       if (response.data.count > 0) {
@@ -120,7 +118,6 @@ const tallennaMuokkaus = async () => {
   const format = (pvm) =>
     pvm ? new Date(pvm).toLocaleDateString("fi-FI") : "-";
 
-
   // suodatus rekisterinumeron perusteella, huomioidaan myös ajoneuvotiedot
   const naytettavatKatsastukset = katsastukset.filter((k) => {
     const ajoneuvo = ajoneuvot.find((a) => a.id === k.ajoneuvoId);
@@ -133,9 +130,10 @@ const tallennaMuokkaus = async () => {
       {/* VASEN PUOLI: KORTIT */}
       <Box sx={{ flex: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          
-        <CarRepairIcon sx={{ fontSize: 40, color: "primary.main" }} />
-        <Typography variant="h4" sx={{ fontWeight: 700 }}>Katsastukset</Typography>
+          <CarRepairIcon sx={{ fontSize: 40, color: "primary.main" }} />
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            Katsastukset
+          </Typography>
         </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -171,7 +169,19 @@ const tallennaMuokkaus = async () => {
 
             return (
               <Grid key={k.id}>
-                <Card sx={{ p: 1 }}>
+                <Card
+                  sx={{
+                    p: 1,
+                    backgroundColor:
+                      muokattava?.id === k.id
+                        ? "secondary.contrastText"
+                        : "background.paper",
+                    border: muokattava?.id === k.id ? 2 : 1,
+                    borderColor:
+                      muokattava?.id === k.id ? "primary.light" : "divider",
+                    transition: "all 0.2s ease",
+                  }}
+                >
                   <CardContent>
                     <Typography variant="h6" sx={{ mb: 1 }}>
                       {ajoneuvo?.rekisterinumero ?? "Tuntematon ajoneuvo"}
@@ -182,8 +192,7 @@ const tallennaMuokkaus = async () => {
                     </Typography>
 
                     <Typography variant="body2">
-                      <strong>Voimassa asti:</strong>{" "}
-                      {format(k.voimassa_asti)}
+                      <strong>Voimassa asti:</strong> {format(k.voimassa_asti)}
                     </Typography>
 
                     <Typography variant="body2">
