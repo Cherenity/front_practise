@@ -1,56 +1,77 @@
-import { useState } from "react";
-
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-//Iconit
+// ikonit
 import CarRepairIcon from "@mui/icons-material/CarRepair";
 import DriveEtaIcon from "@mui/icons-material/DriveEta";
 import PieChartIcon from "@mui/icons-material/PieChart";
 
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useLocation } from "react-router";
 
 function TabMUI() {
-  const [value, setValue] = useState(0);
+  // haetaan nykyinen osoite selaimen osoiteriviltä
+  const location = useLocation();
 
-  const handleChange = (e, val) => {
-    setValue(val);
+  // päätellään aktiivinen välilehti nykyisen osoitteen perusteella
+  const haeTabArvo = () => {
+    // jos osoite alkaa katsastukset-polulla, aktivoidaan katsastukset-välilehti
+    if (location.pathname.startsWith("/katsastukset")) {
+      return "/katsastukset";
+    }
+
+    // jos osoite alkaa dashboard-polulla, aktivoidaan dashboard-välilehti
+    if (location.pathname.startsWith("/dashboard")) {
+      return "/dashboard";
+    }
+
+    // muuten aktiivisena on ajoneuvot-välilehti
+    return "/";
   };
+
+  // tabs-komponentin value tulee osoitteen perusteella
+  const value = haeTabArvo();
 
   return (
     <Box>
+      {/* yläpalkki, jonka sisällä välilehdet näytetään */}
       <AppBar position="static">
-        <Tabs
-          value={value}
-          variant="standard"
-          textColor="inherit"
-          onChange={(e, val) => handleChange(e, val)}
-        >
+        
+        {/* value määrittää, mikä välilehti on aktiivinen */}
+        <Tabs value={value} variant="standard" textColor="inherit">
+          {/* ajoneuvot-välilehti vie etusivulle */}
           <Tab
             label="Ajoneuvot"
             icon={<DriveEtaIcon />}
             component={Link}
             to="/"
+            value="/"
           />
 
+          {/* katsastukset-välilehti vie katsastukset-sivulle */}
           <Tab
             label="Katsastukset"
             icon={<CarRepairIcon />}
             component={Link}
             to="/katsastukset"
+            value="/katsastukset"
           />
+
+          {/* dashboard-välilehti vie dashboard-sivulle */}
           <Tab
             label="Dashboard"
             icon={<PieChartIcon />}
             component={Link}
             to="/dashboard"
+            value="/dashboard"
           />
         </Tabs>
       </AppBar>
+
       <br />
 
+      {/* outlet näyttää aktiivisen reitin komponentin */}
       <Outlet />
     </Box>
   );
