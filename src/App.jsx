@@ -18,6 +18,7 @@ import DashboardMUI from "./MUI/DashboardMUI";
 
 import { Stack } from "@mui/material";
 
+// teema
 const theme = createTheme(
   {
     palette: {
@@ -79,65 +80,66 @@ const theme = createTheme(
   }, // components
 ); // theme
 
-const ajoneuvot = [
-  {
-    id: 1,
-    rekisterinumero: "ABK-115",
-    merkki: "Toyota",
-    malli: "Yaris",
-    tyyppi: "Henkilöauto",
-    kayttoonottoPvm: "2021-03-15",
-    kaytossa: true,
-  },
-  {
-    id: 2,
-    rekisterinumero: "ABC-456",
-    merkki: "Ford",
-    malli: "Transit",
-    tyyppi: "Pakettiauto",
-    kayttoonottoPvm: "2019-06-20",
-    kaytossa: false,
-  },
-  {
-    id: 3,
-    rekisterinumero: "GHI-789",
-    merkki: "Tesla",
-    malli: "Model joku",
-    tyyppi: "Henkilöauto",
-    kayttoonottoPvm: "2023-05-12",
-    kaytossa: true,
-  },
-];
+//vanhat objektit, jotka on korvattu tietokannalla:
+// const ajoneuvot = [
+//   {
+//     id: 1,
+//     rekisterinumero: "ABK-115",
+//     merkki: "Toyota",
+//     malli: "Yaris",
+//     tyyppi: "Henkilöauto",
+//     kayttoonottoPvm: "2021-03-15",
+//     kaytossa: true,
+//   },
+//   {
+//     id: 2,
+//     rekisterinumero: "ABC-456",
+//     merkki: "Ford",
+//     malli: "Transit",
+//     tyyppi: "Pakettiauto",
+//     kayttoonottoPvm: "2019-06-20",
+//     kaytossa: false,
+//   },
+//   {
+//     id: 3,
+//     rekisterinumero: "GHI-789",
+//     merkki: "Tesla",
+//     malli: "Model joku",
+//     tyyppi: "Henkilöauto",
+//     kayttoonottoPvm: "2023-05-12",
+//     kaytossa: true,
+//   },
+// ];
 
-const katsastukset = [
-  {
-    id: 1,
-    ajoneuvoId: 1,
-    katsastus_pvm: "2023-04-10",
-    voimassa_asti: "2026-04-10",
-    tulos: "Hyväksytty",
-    kilometrit: 15000,
-    huomiot: "Ei huomautettavaa",
-  },
-  {
-    id: 2,
-    ajoneuvoId: 2,
-    katsastus_pvm: "2016-11-05",
-    voimassa_asti: "2020-11-05",
-    tulos: "Hylätty",
-    kilometrit: 50000,
-    huomiot: "Jarrut kuluneet, vaihdettava",
-  },
-  {
-    id: 3,
-    ajoneuvoId: 2,
-    katsastus_pvm: "2020-01-05",
-    voimassa_asti: "2024-01-05",
-    tulos: "Hyväksytty",
-    kilometrit: 8000,
-    huomiot: "Ei huomautettavaa",
-  },
-];
+// const katsastukset = [
+//   {
+//     id: 1,
+//     ajoneuvoId: 1,
+//     katsastus_pvm: "2023-04-10",
+//     voimassa_asti: "2026-04-10",
+//     tulos: "Hyväksytty",
+//     kilometrit: 15000,
+//     huomiot: "Ei huomautettavaa",
+//   },
+//   {
+//     id: 2,
+//     ajoneuvoId: 2,
+//     katsastus_pvm: "2016-11-05",
+//     voimassa_asti: "2020-11-05",
+//     tulos: "Hylätty",
+//     kilometrit: 50000,
+//     huomiot: "Jarrut kuluneet, vaihdettava",
+//   },
+//   {
+//     id: 3,
+//     ajoneuvoId: 2,
+//     katsastus_pvm: "2020-01-05",
+//     voimassa_asti: "2024-01-05",
+//     tulos: "Hyväksytty",
+//     kilometrit: 8000,
+//     huomiot: "Ei huomautettavaa",
+//   },
+// ];
 
 function App() {
   // ajoneuvokirjasto
@@ -155,50 +157,21 @@ function App() {
         <Stack direction="column" spacing={2}>
           <BrowserRouter>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <TabMUI ajoneuvot={ajoneuvot} katsastukset={katsastukset} />
-                }
-              >
-                <Route
-                  index
-                  element={
-                    <AjoneuvotMUI
-                      ajoneuvot={ajoneuvot}
-                      katsastukset={katsastukset}
-                    />
-                  }
-                />
+              <Route path="/" element={<TabMUI />}>
+                <Route index element={<AjoneuvotMUI />} />
 
-                <Route
-                  path="/dashboard"
-                  element={
-                    <DashboardMUI
-                      ajoneuvot={ajoneuvot}
-                      katsastukset={katsastukset}
-                    />
-                  }
-                />
+                <Route path="/dashboard" element={<DashboardMUI />} />
 
-                <Route
-                  path="/katsastukset"
-                  element={
-                    <KatsastuksetMUI
-                      katsastukset={katsastukset}
-                      ajoneuvot={ajoneuvot}
-                    />
-                  }
-                />
+                <Route path="/katsastukset" element={<KatsastuksetMUI />} />
 
                 <Route
                   path="/ajoneuvontiedot/:id"
-                  element={<AjoneuvoLomakeMUI ajoneuvot={ajoneuvot} />}
+                  element={<AjoneuvoLomakeMUI />}
                 />
                 <Route path="/ajoneuvolomake" element={<AjoneuvoLomakeMUI />} />
                 <Route
                   path="/katsastuslomake"
-                  element={<KatsastusLomakeMUI ajoneuvot={ajoneuvot} />}
+                  element={<KatsastusLomakeMUI/>}
                 />
               </Route>
             </Routes>
@@ -212,22 +185,3 @@ function App() {
 }
 
 export default App;
-
-// Käytössä Roboto-fontti (voi vielä muuttua).
-// Asennus: npm install @fontsource/roboto
-
-// Arvostan kehitysideoita, sillä muutamassa kohdassa tuli pieniä suunnittelu- ja ajatusblokkeja.
-// Projektissa on vielä selkeitä puutteita, mutta tavoitteena on korjata ne ennen viimeistä palautusta. Kokeilen miettiä myös ulkoasua, jos saisi hiottua vielä.
-
-// Parannusideoita jatkoon:
-// - Ajoneuvojen poisto pitää tehdä mahdolliseksi
-// - Lisää katsastuksia vain valituille ajoneuvoille ja lomakkeeseen voisi tuoda ajoneuvon tiedot automaattisesti. (Nyt Lisää katsastus erikseen)
-// - Näytä pian vanhenevat ja hylätyt katsastukset listan kärjessä 
-//   (tärkeää käytettävyyden ja toiminnallisuuden kannalta).
-// - Kehitä dashboardia lisäämällä hyödyllisiä visuaaleja ja selkeämpiä mittareita.
-// - Selkeytä katsastustulosten ja huomioiden esitystapaa.
-// - Lisää paluutoiminto ajoneuvo- ja katsastuslomakkeille, sekä mahdollisesti myös Toast-ilmoituksia.
-// - Paranna yleistä toimivuutta ja käytettävyyttä.
-
-// Lisäksi pohdintaa:
-// - Katsastukset voisi ehkä generoida automaattisesti ilman erillistä lisäämistä tai muokkaamista.

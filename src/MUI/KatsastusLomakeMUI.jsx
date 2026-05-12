@@ -10,14 +10,12 @@ import {
   Alert,
 } from "@mui/material";
 
-// Kantakäsittelijä
+// kantakäsittelijä
 import { addKatsastus } from "../MUI/ajoneuvotKatsastukset";
 
-function KatsastusLomakeMUI({ ajoneuvot }) {
+function KatsastusLomakeMUI() {
 
-  // =========================
-  // STATET
-  // =========================
+  // state-muuttujat lomakedatalle
 
   const [ajoneuvoId, setAjoneuvoId] = useState("");
   const [katsastusPvm, setKatsastusPvm] = useState("");
@@ -28,9 +26,6 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
   const [viesti, setViesti] = useState("");
 
 
-  // =========================
-  // PAKOLLISET KENTÄT
-  // =========================
 
   const pakollisetKentat = [
     ajoneuvoId,
@@ -41,10 +36,8 @@ function KatsastusLomakeMUI({ ajoneuvot }) {
   ];
 
 
-  // =========================
-  // LISÄÄ KATSASTUS
-  // =========================
 
+  
   const lisaaTiedot = async () => {
 
     // Tarkistetaan että pakolliset kentät on täytetty

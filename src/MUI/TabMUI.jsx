@@ -12,7 +12,7 @@ import PieChartIcon from "@mui/icons-material/PieChart";
 
 import { Link, Outlet } from "react-router";
 
-function TabMUI({ ajoneuvot, katsastukset }) {
+function TabMUI() {
   const [value, setValue] = useState(0);
 
   const handleChange = (e, val) => {
@@ -28,22 +28,25 @@ function TabMUI({ ajoneuvot, katsastukset }) {
           textColor="inherit"
           onChange={(e, val) => handleChange(e, val)}
         >
-                    <Tab 
-          label="Ajoneuvot" 
-          icon={<DriveEtaIcon />}
-          component={Link}
-          to="/"
+          <Tab
+            label="Ajoneuvot"
+            icon={<DriveEtaIcon />}
+            component={Link}
+            to="/"
           />
 
-          <Tab 
-          label="Katsastukset" icon={<CarRepairIcon />} component={Link} to="/katsastukset" />
+          <Tab
+            label="Katsastukset"
+            icon={<CarRepairIcon />}
+            component={Link}
+            to="/katsastukset"
+          />
           <Tab
             label="Dashboard"
             icon={<PieChartIcon />}
             component={Link}
             to="/dashboard"
           />
-
         </Tabs>
       </AppBar>
       <br />
