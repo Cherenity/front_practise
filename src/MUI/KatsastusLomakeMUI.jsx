@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Button,
@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 // kantakäsittelijä
-import { addKatsastus } from "../MUI/ajoneuvotKatsastukset";
+import { addKatsastus, getAjoneuvot } from "../MUI/ajoneuvotKatsastukset";
 
 function KatsastusLomakeMUI() {
 
@@ -25,6 +25,22 @@ function KatsastusLomakeMUI() {
   const [huomiot, setHuomiot] = useState("");
   const [viesti, setViesti] = useState("");
 
+  // state-ajoneuvot haettavalle ajoneuvolistalle, joka näytetään lomakkeen dropdown-valikossa
+  const [ajoneuvot, setAjoneuvot] = useState([]);
+
+  // Haetaan ajoneuvot lomakkeen alussa
+  useEffect(() => {
+    const haeAjoneuvot = async () => {
+      try {
+        const response = await getAjoneuvot();
+        setAjoneuvot(response.data);
+      } catch (error) {
+        console.error("Ajoneuvojen haku epäonnistui:", error);
+      }
+    };
+
+    haeAjoneuvot();
+  }, []);
 
 
   const pakollisetKentat = [
@@ -34,7 +50,6 @@ function KatsastusLomakeMUI() {
     tulos,
     kilometrit,
   ];
-
 
 
   
@@ -123,10 +138,6 @@ function KatsastusLomakeMUI() {
   };
 
 
-  // =========================
-  // TYHJENNÄ LOMAKE
-  // =========================
-
   const tyhjennaTiedot = () => {
 
     setAjoneuvoId("");
@@ -139,17 +150,11 @@ function KatsastusLomakeMUI() {
   };
 
 
-  // =========================
-  // TÄMÄN PÄIVÄN PÄIVÄMÄÄRÄ
-  // =========================
 
   const today =
     new Date().toISOString().split("T")[0];
 
 
-  // =========================
-  // KÄYTTÖLIITTYMÄ
-  // =========================
 
   return (
 
@@ -175,7 +180,6 @@ function KatsastusLomakeMUI() {
       </Typography>
 
 
-      {/* AJONEUVON VALINTA */}
       <TextField
         select
         label="Ajoneuvo"
@@ -246,7 +250,6 @@ function KatsastusLomakeMUI() {
       />
 
 
-      {/* VOIMASSA ASTI */}
       <TextField
         label="Voimassa asti"
         type="date"
@@ -268,7 +271,6 @@ function KatsastusLomakeMUI() {
       />
 
 
-      {/* TULOS */}
       <TextField
         select
         label="Tulos"
