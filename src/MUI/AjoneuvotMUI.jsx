@@ -296,23 +296,36 @@ function AjoneuvotMUI() {
           <>
             {/* valitun ajoneuvon perustiedot */}
             <Paper
-              sx={{ p: 2, mb: 2, border: 2, borderColor: "primary.light" }}
+              sx={{
+                p: 2,
+                mb: 2,
+                border: 2,
+                borderColor: "primary.light",
+                backgroundColor: "primary.light",
+              }}
             >
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography
+                variant="subtitle1"
+                fontWeight="bold"
+                color="primary.contrastText"
+              >
                 Valittu ajoneuvo
               </Typography>
 
-              <Typography>{valittuAjoneuvo.rekisterinumero}</Typography>
-
-              <Typography variant="body2" color="text.secondary">
-                {valittuAjoneuvo.merkki} {valittuAjoneuvo.malli}
+              <Typography color="primary.contrastText">
+                {valittuAjoneuvo.rekisterinumero}
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="secondary.contrastText">
+                {valittuAjoneuvo.merkki}{" "}
+                {valittuAjoneuvo.malli}
+              </Typography>
+
+              <Typography variant="body2" color="secondary.contrastText">
                 Tyyppi: {valittuAjoneuvo.tyyppi}
               </Typography>
 
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="secondary.contrastText">
                 Käyttöönottopäivä:{" "}
                 {valittuAjoneuvo.kayttoonottoPvm
                   ? new Date(
