@@ -6,6 +6,8 @@ import KatsastuksetMUI from "./MUI/KatsastuksetMUI";
 import AjoneuvoLomakeMUI from "./MUI/AjoneuvoLomakeMUI";
 import KatsastusLomakeMUI from "./MUI/KatsastusLomakeMUI";
 
+import Virhe from "./MUI/Virhe";
+
 import DashboardMUI from "./MUI/DashboardMUI";
 import TabMUI from "./MUI/TabMUI";
 
@@ -173,6 +175,9 @@ function App() {
                   element={<KatsastusLomakeMUI/>}
                 />
               </Route>
+              <Route path="/virhe" element={<Virhe />} />
+              <Route path="*" element={<Virhe virhe="Kyseistä sivua ei ole" />} />
+
             </Routes>
           </BrowserRouter>
         </Stack>
