@@ -81,7 +81,7 @@ function AjoneuvotMUI() {
   // muutetaan hakusana pieniksi kirjaimiksi hakua varten
   const haku = hakusana.toLowerCase();
 
-  // suodatetaan ajoneuvot hakusanan ja tyypin perusteella
+  // suodatetaan ajoneuvot hakusanan, tyypin ja käyttötilan perusteella
   const suodatetutAjoneuvot = ajoneuvot.filter((a) => {
     // muutetaan hakukentät pieniksi kirjaimiksi ja korvataan tyhjät arvot tyhjällä merkkijonolla
     const tekstit = [a.rekisterinumero, a.merkki, a.malli].map((x) =>
@@ -97,11 +97,16 @@ function AjoneuvotMUI() {
     // tarkistetaan täsmääkö ajoneuvon tyyppi valittuun suodattimeen
     const osuuTyyppiin = suodatin === "kaikki" || suodatin === tyyppi;
 
+    // muutetaan tietokannan 0 tai 1 boolean-tyyppiseksi tarkistukseksi
     const ajoneuvoKaytossa = Number(a.kaytossa) === 1;
 
-    const osuuKaytossaSuodattimeen = !kaytossa || ajoneuvoKaytossa;
+    // jos switch on pois päältä, näytetään käytössä olevat
+    // jos switch on päällä, näytetään ei käytössä olevat
+    const osuuKaytossaSuodattimeen = kaytossa
+      ? !ajoneuvoKaytossa
+      : ajoneuvoKaytossa;
 
-    // palautetaan vain ajoneuvot, jotka täsmäävät hakuun ja suodattimeen
+    // palautetaan vain ajoneuvot, jotka täsmäävät hakuun, tyyppiin ja käyttötilaan
     return osuuHakuun && osuuTyyppiin && osuuKaytossaSuodattimeen;
   });
 
@@ -173,7 +178,7 @@ function AjoneuvotMUI() {
             }}
           />
 
-          {/* uusi ajoneuvo -painike, joka vie ajoneuvolomakkeelle       */}
+          {/* uusi ajoneuvo -painike, joka vie ajoneuvolomakkeelle */}
           <IconButton color="primary" component={Link} to="/ajoneuvolomake">
             <AddIcon fontSize="large" sx={{ mb: 2 }} />
           </IconButton>
@@ -207,7 +212,7 @@ function AjoneuvotMUI() {
               checked={kaytossa}
               onChange={(e) => setKaytossa(e.target.checked)}
             />
-            <Typography>{kaytossa ? "Käytössä" : "Ei käytössä"}</Typography>
+            <Typography>{kaytossa ? "Ei käytössä" : "Käytössä"}</Typography>
           </Box>
         </Box>
 
@@ -227,7 +232,7 @@ function AjoneuvotMUI() {
                 transition: "all 0.2s ease",
               }}
             >
-              {/* elavevation poistaa Card-komponentin varjostuksen */}
+              {/* elevation poistaa Card-komponentin varjostuksen */}
               <Card elevation={0}>
                 <CardContent>
                   <Box
@@ -267,7 +272,7 @@ function AjoneuvotMUI() {
                       variant="outlined"
                       component={Link}
                       to={`/ajoneuvontiedot/${a.id}`}
-                      // estetään tapahtuman leviämisen, jotta kortti ei valitse uudestaan klikattaessa muokkauspainiketta
+                      // estetään tapahtuman leviäminen, jotta kortti ei valitse uudestaan klikattaessa muokkauspainiketta
                       onClick={(e) => e.stopPropagation()}
                     >
                       Muokkaa
