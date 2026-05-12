@@ -17,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import CarRepairIcon from "@mui/icons-material/CarRepair";
 
 import { Link } from "react-router";
 
@@ -29,10 +30,6 @@ function KatsastuksetMUI() {
   const [viesti, setViesti] = useState("");
 
   const url = "http://localhost:8080";
-
-  // =========================
-  // HAE TIEDOT TIETOKANNASTA
-  // =========================
 
   const haeKatsastukset = async () => {
     try {
@@ -59,9 +56,7 @@ function KatsastuksetMUI() {
     haeAjoneuvot();
   }, []);
 
-  // =========================
-  // MUOKKAA KATSASTUSTA
-  // =========================
+
 
 const tallennaMuokkaus = async () => {
   try {
@@ -101,11 +96,6 @@ const tallennaMuokkaus = async () => {
   }
 };
 
-
-  // =========================
-  // POISTA KATSASTUS
-  // =========================
-
   const poistaKatsastus = async () => {
     try {
       const response = await axios.delete(
@@ -142,7 +132,11 @@ const tallennaMuokkaus = async () => {
     <Box sx={{ display: "flex", gap: 3, p: 2 }}>
       {/* VASEN PUOLI: KORTIT */}
       <Box sx={{ flex: 2 }}>
-        <Typography variant="h4">Katsastukset</Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          
+        <CarRepairIcon sx={{ fontSize: 40, color: "primary.main" }} />
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>Katsastukset</Typography>
+        </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Katsastustiedot ja niiden muokkaus

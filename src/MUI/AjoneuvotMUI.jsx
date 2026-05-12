@@ -13,6 +13,7 @@ import {
 
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
 
 import { Link } from "react-router";
 
@@ -135,9 +136,13 @@ function AjoneuvotMUI() {
 
   return (
     <Box sx={{ display: "flex", gap: 2, p: 2 }}>
+
       {/* vasen puoli, jossa näytetään ajoneuvolista */}
       <Box sx={{ flex: 1 }}>
-        <Typography variant="h4">Ajoneuvot</Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <DriveEtaIcon sx={{ fontSize: 40, color: "primary.main" }} />
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>Ajoneuvot</Typography>
+        </Box>
 
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           Ajoneuvot ja niiden katsastukset
@@ -234,6 +239,7 @@ function AjoneuvotMUI() {
           ))}
         </Stack>
       </Box>
+
 
       {/* oikea puoli, jossa näytetään valitun ajoneuvon tiedot */}
       <Box sx={{ flex: 1 }}>
