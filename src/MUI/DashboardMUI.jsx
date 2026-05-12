@@ -28,9 +28,6 @@ import {
 } from "../MUI/ajoneuvotKatsastukset";
 
 function DashboardMUI() {
-  // =========================
-  // TIETOKANNASTA HAETTAVAT TIEDOT
-  // =========================
 
   // Ajoneuvot tallennetaan tähän stateen, kun ne on haettu tietokannasta.
   const [ajoneuvot, setAjoneuvot] = useState([]);
@@ -44,10 +41,6 @@ function DashboardMUI() {
   // virheeseen tallennetaan käyttäjälle näytettävä virheilmoitus,
   // jos tietojen haku epäonnistuu.
   const [virhe, setVirhe] = useState("");
-
-  // =========================
-  // TIETOJEN HAKU TIETOKANNASTA
-  // =========================
 
   useEffect(() => {
     const haeTiedot = async () => {
@@ -91,9 +84,6 @@ function DashboardMUI() {
     haeTiedot();
   }, []);
 
-  // =========================
-  // LASKETTAVAT YHTEENVETOTIEDOT
-  // =========================
 
   // Lasketaan hyväksyttyjen ja hylättyjen katsastusten määrät.
   const hyvaksytyt = katsastukset.filter(
@@ -119,10 +109,6 @@ function DashboardMUI() {
   const viimeisimmatKatsastukset = [...katsastukset]
     .sort((a, b) => new Date(b.katsastus_pvm) - new Date(a.katsastus_pvm))
     .slice(0, 5);
-
-  // =========================
-  // PIENI SISÄINEN KORTTIKOMPONENTTI
-  // =========================
 
   // Kortti-komponenttia käytetään dashboardin yläosan tunnuslukukorteissa.
   // Näin samaa ulkoasua ei tarvitse kirjoittaa neljään kertaan.
@@ -193,9 +179,6 @@ function DashboardMUI() {
 
   return (
     <Box sx={{ p: 3 }}>
-      {/* =========================
-          OTSIKKO
-          ========================= */}
 
       <Box sx={{ mb: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -210,10 +193,6 @@ function DashboardMUI() {
           Ajoneuvojen ja katsastusten yhteenveto tietokannasta
         </Typography>
       </Box>
-
-      {/* =========================
-          YHTEENVETOKORTIT
-          ========================= */}
 
       <Box
         sx={{
@@ -259,9 +238,6 @@ function DashboardMUI() {
         />
       </Box>
 
-      {/* =========================
-          LISÄVISUAALIT
-          ========================= */}
 
       <Box
         sx={{

@@ -1,4 +1,3 @@
-
 import AjoneuvotMUI from "./MUI/AjoneuvotMUI";
 import KatsastuksetMUI from "./MUI/KatsastuksetMUI";
 
@@ -12,7 +11,6 @@ import DashboardMUI from "./MUI/DashboardMUI";
 import TabMUI from "./MUI/TabMUI";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
 
 import "@fontsource/roboto";
 // npm install @fontsource/roboto
@@ -172,12 +170,14 @@ function App() {
                 <Route path="/ajoneuvolomake" element={<AjoneuvoLomakeMUI />} />
                 <Route
                   path="/katsastuslomake"
-                  element={<KatsastusLomakeMUI/>}
+                  element={<KatsastusLomakeMUI />}
                 />
               </Route>
               <Route path="/virhe" element={<Virhe />} />
-              <Route path="*" element={<Virhe virhe="Kyseistä sivua ei ole" />} />
-
+              <Route
+                path="*"
+                element={<Virhe virhe="Kyseistä sivua ei ole" />}
+              />
             </Routes>
           </BrowserRouter>
         </Stack>
