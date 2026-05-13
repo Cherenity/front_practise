@@ -12,6 +12,7 @@ import {
   Box,
   Button,
   Alert,
+  CardHeader,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -120,7 +121,6 @@ function KatsastuksetMUI() {
 
   // suodatetaan katsastukset niihin liittyvien ajoneuvojen rekisterinumeron perusteella
   const naytettavatKatsastukset = katsastukset.filter((k) => {
-    
     // etsitään katsastukseen liittyvä ajoneuvo ajoneuvoId-kentän avulla
     const ajoneuvo = ajoneuvot.find((a) => a.id === k.ajoneuvoId);
 
@@ -178,22 +178,31 @@ function KatsastuksetMUI() {
               <Grid key={k.id}>
                 <Card
                   sx={{
+                    width: 300,
                     p: 1,
-                    backgroundColor:
-                      muokattava?.id === k.id
-                        ? "secondary.contrastText"
-                        : "background.paper",
-                    border: muokattava?.id === k.id ? 2 : 1,
+                    border: muokattava?.id === k.id ? 8 : 1,
                     borderColor:
                       muokattava?.id === k.id ? "primary.light" : "divider",
                     transition: "all 0.2s ease",
                   }}
                 >
+                  <CardHeader
+                    title={ajoneuvo?.rekisterinumero ?? "Tuntematon ajoneuvo"}
+                    subheader={`Ajoneuvon id: ${k.ajoneuvoId}`}
+                    sx={{
+                      backgroundColor: "primary.light",
+                      py: 1,
+                      color: "white",
+                      "& .MuiCardHeader-subheader": {
+                        color: "white",
+                      },
+                    }}
+                  />
+
                   <CardContent>
                     <Typography variant="h6" sx={{ mb: 1 }}>
-                      {ajoneuvo?.rekisterinumero ?? "Tuntematon ajoneuvo"}
+                      Katsastus {k.id}
                     </Typography>
-
                     <Typography variant="body2">
                       <strong>Päivä:</strong> {format(k.katsastus_pvm)}
                     </Typography>
