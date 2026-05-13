@@ -22,13 +22,9 @@ import TrafficIcon from "@mui/icons-material/Traffic";
 
 // Tuodaan kantakäsittelijästä funktiot, joilla haetaan tiedot backendiltä.
 // Backend hakee varsinaiset tiedot SQLite-tietokannasta.
-import {
-  getAjoneuvot,
-  getKatsastukset,
-} from "../MUI/ajoneuvotKatsastukset";
+import { getAjoneuvot, getKatsastukset } from "../MUI/ajoneuvotKatsastukset";
 
 function DashboardMUI() {
-
   // Ajoneuvot tallennetaan tähän stateen, kun ne on haettu tietokannasta.
   const [ajoneuvot, setAjoneuvot] = useState([]);
 
@@ -83,7 +79,6 @@ function DashboardMUI() {
 
     haeTiedot();
   }, []);
-
 
   // Lasketaan hyväksyttyjen ja hylättyjen katsastusten määrät.
   const hyvaksytyt = katsastukset.filter(
@@ -157,7 +152,7 @@ function DashboardMUI() {
     </Card>
   );
 
- 77 // lataus ja virhe tilanteet käsitellään erikseen, jotta varmistetaan että data on kunnossa ennen kuin yritetään renderöidä dashboardia
+  77; // lataus ja virhe tilanteet käsitellään erikseen, jotta varmistetaan että data on kunnossa ennen kuin yritetään renderöidä dashboardia
 
   if (ladataan) {
     return (
@@ -177,7 +172,6 @@ function DashboardMUI() {
 
   return (
     <Box sx={{ p: 3 }}>
-
       <Box sx={{ mb: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <PieChartIcon sx={{ fontSize: 40, color: "primary.main" }} />
@@ -236,7 +230,6 @@ function DashboardMUI() {
         />
       </Box>
 
-
       <Box
         sx={{
           display: "flex",
@@ -244,7 +237,7 @@ function DashboardMUI() {
           flexWrap: "wrap",
         }}
       >
-        {/* Katsastustulosten prosentit */}
+        {/* näytetään katsastusten tulosjakauma prosentteina */}
         <Paper
           sx={{
             flex: 1,
@@ -254,10 +247,12 @@ function DashboardMUI() {
             boxShadow: 2,
           }}
         >
+          {/* kortin otsikko */}
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
             Katsastusten tulosjakauma
           </Typography>
 
+          {/* hyväksyttyjen katsastusten prosenttiosuus ja etenemispalkki */}
           <Box sx={{ mb: 2 }}>
             <Box
               sx={{
@@ -281,6 +276,7 @@ function DashboardMUI() {
             />
           </Box>
 
+          {/* hylättyjen katsastusten prosenttiosuus ja etenemispalkki */}
           <Box>
             <Box
               sx={{
