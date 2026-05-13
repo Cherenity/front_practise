@@ -118,16 +118,23 @@ function KatsastuksetMUI() {
   const format = (pvm) =>
     pvm ? new Date(pvm).toLocaleDateString("fi-FI") : "-";
 
-  // suodatus rekisterinumeron perusteella, huomioidaan myös ajoneuvotiedot
+  // suodatetaan katsastukset niihin liittyvien ajoneuvojen rekisterinumeron perusteella
   const naytettavatKatsastukset = katsastukset.filter((k) => {
+    
+    // etsitään katsastukseen liittyvä ajoneuvo ajoneuvoId-kentän avulla
     const ajoneuvo = ajoneuvot.find((a) => a.id === k.ajoneuvoId);
+
+    // otetaan ajoneuvon rekisterinumero isoilla kirjaimilla
+    // jos ajoneuvoa tai rekisterinumeroa ei ole, käytetään tyhjää merkkijonoa
     const rek = ajoneuvo?.rekisterinumero?.toUpperCase() ?? "";
+
+    // palautetaan katsastus vain, jos rekisterinumero sisältää hakusanan
     return rek.includes(haku);
   });
 
   return (
     <Box sx={{ display: "flex", gap: 3, p: 2 }}>
-      {/* VASEN PUOLI: KORTIT */}
+      {/* Vasen puoli: Kortit */}
       <Box sx={{ flex: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <CarRepairIcon sx={{ fontSize: 40, color: "primary.main" }} />
@@ -226,7 +233,7 @@ function KatsastuksetMUI() {
         </Grid>
       </Box>
 
-      {/* OIKEA PUOLI: MUOKKAUSLOMAKE */}
+      {/* Oikea puoli: Muokkauslomake */}
       <Box sx={{ flex: 1 }}>
         {muokattava ? (
           <Card sx={{ p: 2 }}>
