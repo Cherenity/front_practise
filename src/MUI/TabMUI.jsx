@@ -16,20 +16,20 @@ function TabMUI() {
 
   // päätellään aktiivinen välilehti nykyisen osoitteen perusteella
   const haeTabArvo = () => {
-    // jos osoite alkaa katsastukset-polulla, aktivoidaan katsastukset-välilehti
+    if (location.pathname === "/") {
+      return "/";
+    }
+
     if (location.pathname.startsWith("/katsastukset")) {
       return "/katsastukset";
     }
 
-    // jos osoite alkaa dashboard-polulla, aktivoidaan dashboard-välilehti
     if (location.pathname.startsWith("/dashboard")) {
       return "/dashboard";
     }
 
-    // muuten aktiivisena on ajoneuvot-välilehti
-    return "/";
+    return false;
   };
-
   // tabs-komponentin value tulee osoitteen perusteella
   const value = haeTabArvo();
 
@@ -37,7 +37,6 @@ function TabMUI() {
     <Box>
       {/* yläpalkki, jonka sisällä välilehdet näytetään */}
       <AppBar position="static">
-        
         {/* value määrittää, mikä välilehti on aktiivinen */}
         <Tabs value={value} variant="standard" textColor="inherit">
           {/* ajoneuvot-välilehti vie etusivulle */}

@@ -172,12 +172,14 @@ function App() {
                   path="/katsastuslomake"
                   element={<KatsastusLomakeMUI />}
                 />
+
+                <Route path="/virhe" element={<Virhe />} />
+                <Route
+                  path="*"
+                  element={<Virhe virhe="Kyseistä sivua ei ole" />}
+                />
+                
               </Route>
-              <Route path="/virhe" element={<Virhe />} />
-              <Route
-                path="*"
-                element={<Virhe virhe="Kyseistä sivua ei ole" />}
-              />
             </Routes>
           </BrowserRouter>
         </Stack>
