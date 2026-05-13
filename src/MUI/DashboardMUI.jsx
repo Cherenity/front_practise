@@ -152,7 +152,7 @@ function DashboardMUI() {
     </Card>
   );
 
-  77; // lataus ja virhe tilanteet käsitellään erikseen, jotta varmistetaan että data on kunnossa ennen kuin yritetään renderöidä dashboardia
+  // lataus ja virhe tilanteet käsitellään erikseen, jotta varmistetaan että data on kunnossa ennen kuin yritetään renderöidä dashboardia
 
   if (ladataan) {
     return (
